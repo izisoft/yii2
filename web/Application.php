@@ -1,5 +1,5 @@
 <?php 
-namespace frontend\extentions\web;
+namespace izi\web;
 
 class Application extends \yii\web\Application
 
