@@ -27,7 +27,7 @@ class DbRouter extends \yii\db\ActiveRecord
             return $config;
         }else{
             $config = static::find()
-            ->select(['a.sid','a.is_invisible','b.status','b.code','a.is_admin','a.module','b.to_date','a.state','b.layout','b.api_token'])
+            ->select(['a.sid','a.is_invisible','b.status','b.code','a.is_admin','a.module','a.layout','b.to_date','a.state','b.layout','b.api_token'])
             ->from(['a'=>'{{%domain_pointer}}'])
             ->innerJoin(['b'=>'{{%shops}}'],'a.sid=b.id')
             ->where(['a.domain'=>__DOMAIN__])->asArray()->one();
@@ -69,4 +69,108 @@ class DbRouter extends \yii\db\ActiveRecord
             return $item;
         }
     }
+    
+    public function getRootCategoryDetail($item = []){
+        if(is_numeric($item)){
+            $item = $this->getCategoryDetail($item);
+        }
+        
+        if(!empty($item)){
+            
+            if(isset($item['parent_id']) && $item['parent_id'] == 0){
+                return $item;
+            }else{
+                
+                $item = static::find()
+                ->from('{{%site_menu}}')
+                ->where(['and',[
+                    "parent_id" => 0,
+                    'is_active'=>1 ,
+                    'sid'=>__SID__
+                ],
+                    ['<', 'lft', $item['lft']],
+                    ['>', 'rgt', $item['rgt']],
+                ])->asArray()->one();
+                                 
+                if(!empty($item)) {                    
+                    if(isset($item['bizrule']) && ($content = json_decode($item['bizrule'],1)) != NULL){
+                        $item += $content;
+                        unset($item['bizrule']);
+                    }
+                    return $item;
+                }
+            }
+            
+        }
+    }
+    
+    
+    
+    public function getItemDetail($item_id){
+        
+        $item = static::find()
+        ->from('{{%articles}}')
+        ->where([
+            "id" => $item_id ,
+            'is_active'=>1 ,
+            'sid'=>__SID__
+            
+        ])->asArray()->one();
+        
+        
+        if(!empty($item)) {
+            
+            if(isset($item['bizrule']) && ($content = json_decode($item['bizrule'],1)) != NULL){
+                $item += $content;
+                unset($item['bizrule']);
+            }
+            return $item;
+        }
+    }
+    
+    
+    public function getItemCategory($item_id){
+
+        
+        $item = static::find()
+        ->from(['a'=>'{{%site_menu}}'])
+        ->innerJoin(['b'=>'{{%items_to_category}}'],'a.id=b.category_id' )
+        ->where([
+            "b.item_id" => $item_id             
+        ])->asArray()->one();
+        
+        if(!empty($item)){
+            if(isset($item['bizrule']) && ($content = json_decode($item['bizrule'],1)) != NULL){
+                $item += $content;
+                unset($item['bizrule']);
+            }
+            
+            return $item;
+        }
+        
+    }
+    
+    
+    public function getBoxDetail($item_id){
+        
+        $item = static::find()
+        ->from('{{%box}}')
+        ->where([
+            "id" => $item_id ,
+            'is_active'=>1 ,
+            'sid'=>__SID__
+            
+        ])->asArray()->one();
+        
+        
+        if(!empty($item)) {
+            
+            if(isset($item['bizrule']) && ($content = json_decode($item['bizrule'],1)) != NULL){
+                $item += $content;
+                unset($item['bizrule']);
+            }
+            return $item;
+        }
+    }
+    
 }
