@@ -1,5 +1,5 @@
 <?php 
-namespace app\extentions\router;
+namespace izi\router;
 
 use Yii;
 
