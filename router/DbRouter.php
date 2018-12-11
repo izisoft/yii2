@@ -1,6 +1,6 @@
 <?php
 
-namespace app\extentions\router;
+namespace izi\router;
 
 class DbRouter extends \yii\db\ActiveRecord
 {
