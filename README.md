@@ -13,7 +13,7 @@ Tùy chỉnh bộ định tuyến Yii2 theo mô hình url 1 (hoặc nhiều) c�
 	]
 
 ### Cài đặt
-composer require --prefer-dist izisoft/yii2 "dev-master"
+composer require --prefer-dist izisoft/yii2-app "dev-master"
 
 ### Chức năng
 -------------
