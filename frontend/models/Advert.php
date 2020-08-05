@@ -4,14 +4,10 @@ namespace izi\frontend\models;
 use Yii;
 use yii\db\Query;
 
-class Advert extends \izi\db\ActiveRecord
+class Advert extends \app\models\Advert
 {
     
-    public static function tableName(){
-        return '{{%adverts}}';
-    }
-    
-    
+
     public function getItems($params = []){
         $type = isset($params['type']) && is_numeric($params['type']) ? $params['type'] : -1;
         
@@ -60,9 +56,7 @@ class Advert extends \izi\db\ActiveRecord
         }
         if($box_id > -1){
             $query->andWhere(['a.box_id'=>$box_id]);
-        }
-        
-//         view($query->createCommand()->getRawSql());
+        }        
         
         $rs = $query->orderBy($orderBy)->asArray()->all();
         
@@ -75,9 +69,77 @@ class Advert extends \izi\db\ActiveRecord
             return $this->getItems($params);
         }
          
-        return $this->populateData($rs);
-        
+        $d = $this->populateData($rs);
+
+        //$d = [];
+
+        if(empty($d) && isset($params['migrate'])){
+            //$this->migrate($params['migrate']);
+            Yii::$app->frontend->migrate($params['migrate']);
+        }
+
+        return $d;
     }
      
+    /**
+     * update 05/08/2020
+     */
+
+    public function migrate($data)
+    {
+        
+        $this->migrateCategory($data);
+    } 
+
+
+    /**
+     * Khởi tao danh muc
+     */
+    public function migrateCategory($data)
+    {
+        $adv = \app\models\AdvertCategory::find()
+        ->where(['sid' => __SID__, 'code' => $data['code']])
+        ->with('adverts')
+        ->one();
+
+        if(!empty($adv)){
+            // update code if you want
+        }else{
+            $adv = new \app\models\AdvertCategory();
+            $adv->sid = __SID__;
+            $adv->title = $data['name'];
+            $adv->code = $data['code'];
+            $adv->info = isset($data['info']) ? $data['info'] : '';
+ 
+            if($adv->save()){
+                $data['type'] = $adv->id;
+                $this->migrateAdvert($data);
+            }else{
+                view($adv->errors);
+            }
+        }
+    }
+
+    /**
+     * Khởi tạo QC
+     */
+    public function migrateAdvert($data)
+    {
+        $items = isset($data['data']) ? $data['data'] : $data;
+        if(!empty($items)){
+            foreach($items as $item){
+                $adv = Advert::findOne(['sid' => __SID__, 'image'=>$item['image'], 'type'=>$data['type']]);
+                if(empty($adv)){
+                    $adv = new Advert();
+                    $adv->sid = __SID__;
+                    $adv->type = $data['type'];
+                    foreach($item as $k=>$v){
+                        $adv->$k = $v;
+                    }
+                    $adv->save();
+                }
+            }
+        }
+    }
     
 }
