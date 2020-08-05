@@ -1,5 +1,7 @@
 <?php 
 namespace izi\frontend\models;
+
+// use app\modules\admin\models\Menu;
 use Yii;
 
 class SiteMenu extends \izi\db\ActiveRecord
@@ -169,8 +171,12 @@ class SiteMenu extends \izi\db\ActiveRecord
     public function migrate($data)
     {
         $this->migrateCategory($data);
+        $this->migrateMenu($data);
     } 
     
+    /**
+     * Khởi tạo cây thư mục
+     */
     public function migrateCategory($data)
     {
         $menus = isset($data['data']) ? $data['data'] : $data;
@@ -199,6 +205,7 @@ class SiteMenu extends \izi\db\ActiveRecord
                     }
                     $m->save();
                 }else{
+                    // Cập nhật lại data nếu muốn
                     // foreach($menu as $k=>$v){
                     //     $m->$k = $v;
                     // }
@@ -210,13 +217,10 @@ class SiteMenu extends \izi\db\ActiveRecord
                         $childs[$key]['parent_id'] = $m->id;
                     }
                     $this->migrateCategory($childs);
-
-                    view($childs);
                 }
             }
         }
-
-        // (new \izi\menu\NestedSet())->resetNodeLftRecursive(0);
+        
         $node = Yii::createObject(['class'=>'izi\menu\NestedSet',
             'lang'=>__LANG__,
             'sid'=>__SID__,
@@ -227,9 +231,51 @@ class SiteMenu extends \izi\db\ActiveRecord
     
     
     
+    /**
+     * Khởi tạo menu hiển thị trên website
+     * 
+     */
+    public function migrateMenu($data)
+    {
+        $me = [];
+        $menus = isset($data['data']) ? $data['data'] : $data;
+        if(!empty($menus)){
+            foreach($menus as $menu){
+                $menu['url'] = isset($menu['url']) ? $menu['url'] : unMark($menu['title']);
+                $m = SiteMenu::findOne(['sid' => __SID__, 'url' => $menu['url']]);
+                if(!empty($m)){
+                    $me[] = ['id' => $m->id, 'title' => $m->title, 'url' => $m->url, 'url_link' => $m->url_link, 'auto_show_children'=>'on'];
+                }
+                
+            }
+        }
+
+        // check menu location
+        $local = MenuToLocation::find()->where(['temp_id'=>__TID__, 'location_id'=>$data['code']])
+        ->with('menu')
+        ->one();
+        if(!empty($local)){
+            
+        }
+        else{
+            
+            $m2 = new Menu();
+            $m2->title = $data['name'];
+            $m2->sid = __SID__;
+            $m2->json_data = json_encode($me);
+
+            if($m2->save()){
+                $m1 = new MenuToLocation();
+                $m1->menu_id = $m2->id;
+                $m1->location_id = $data['code'];
+                $m1->temp_id = __TID__;
+                $m1->save();
+            }
+             
+        }
+    }
     
-    
-    
+     
     
     
 }
