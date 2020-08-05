@@ -2780,7 +2780,14 @@ JS
      * Update 05/08/2020
      */
     
-    
+    public function migrate($params)
+    {
+        $data = json_decode(@file_get_contents($params['path']), 1);
+
+        $model = new $data['model'];
+
+        $model->migrate($data);
+    }
     
     
     

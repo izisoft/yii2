@@ -161,8 +161,69 @@ class SiteMenu extends \izi\db\ActiveRecord
     }
     
     
+    /**
+     * update 05/08/2020
+     */
+
+
+    public function migrate($data)
+    {
+        $this->migrateCategory($data);
+    } 
     
-    
+    public function migrateCategory($data)
+    {
+        $menus = isset($data['data']) ? $data['data'] : $data;
+        if(!empty($menus)){
+            foreach($menus as $menu){
+                $menu['url'] = isset($menu['url']) ? $menu['url'] : unMark($menu['title']);
+                $menu['url_link'] = isset($menu['url_link']) ? $menu['url_link'] : cu('/' . $menu['url']);
+                $menu['position'] = isset($menu['position']) ? $menu['position'] : 99;
+                $menu['type'] = isset($menu['type']) ? $menu['type'] : '';
+                $menu['route'] = $menu['type'];
+                $m = SiteMenu::findOne(['sid' => __SID__, 'url' => $menu['url']]);
+
+                
+                if(isset($menu['data']) && !empty($menu['data'])){
+                    $childs = $menu['data'];
+                    unset($menu['data']);
+                }else{
+                    $childs = [];
+                }
+
+                if(empty($m)){
+                    $m = new SiteMenu();
+                    $m->sid = __SID__;
+                    foreach($menu as $k=>$v){
+                        $m->$k = $v;
+                    }
+                    $m->save();
+                }else{
+                    // foreach($menu as $k=>$v){
+                    //     $m->$k = $v;
+                    // }
+                    // $m->save();
+                }
+                // De quy menu
+                if(!empty($childs)){
+                    foreach($childs as $key=>$value){
+                        $childs[$key]['parent_id'] = $m->id;
+                    }
+                    $this->migrateCategory($childs);
+
+                    view($childs);
+                }
+            }
+        }
+
+        // (new \izi\menu\NestedSet())->resetNodeLftRecursive(0);
+        $node = Yii::createObject(['class'=>'izi\menu\NestedSet',
+            'lang'=>__LANG__,
+            'sid'=>__SID__,
+            'tableName'=>$this->tableName(),
+        ]);
+        $node->resetNodeLftRecursive(0);
+    }
     
     
     
