@@ -7,6 +7,8 @@ class Cache extends \yii\base\Component
 {
     private $_session;
     
+    
+    
     public function getSession(){
         if($this->_session == null){
             $this->_session = Yii::$app->session;
@@ -33,7 +35,7 @@ class Cache extends \yii\base\Component
         $this->getSession()->set($key,$value);
     }
     
-    private function encript($params){
+    public function encript($params){
         return md5(json_encode($params));
     }
     

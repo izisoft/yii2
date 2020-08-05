@@ -70,8 +70,8 @@ class UrlManager extends \yii\web\UrlManager
         defined('DOMAIN_INVISIBLED') or define('DOMAIN_INVISIBLED', $DOMAIN_INVISIBLED);
         
         //
-        
-        $router = array_filter(explode('/', trim($request->url,'/')));
+
+        $router = array_filter(explode('/', trim(URL_PATH,'/')));
         
         if(!empty($router)){
             if(!isset($this->_router['module']) && in_array($router[0], $this->getModuleNames())){                
@@ -113,11 +113,11 @@ class UrlManager extends \yii\web\UrlManager
         
         
         if(isset($this->_router['module'])){
-            
+            define('__IS_MODULE__',true);
             
             
         }else{
-            
+            define('__IS_MODULE__',false);
             $this->addRules([
                 '<alias:login>'=>"member/<alias>",
                 '<alias:signup>'=>"member/<alias>",
@@ -125,7 +125,6 @@ class UrlManager extends \yii\web\UrlManager
             ]);
             
             $isDetail = false;
-            
             if(!empty($this->_router)){
                          
             // Default module 
@@ -135,6 +134,12 @@ class UrlManager extends \yii\web\UrlManager
                     switch ($k) {
                         case 'controller':
                             
+							if(in_array($v, ['robots.txt', 'sitemap.xml'])){
+								$this->_router['controller'] = str_replace(['.txt','.xml'],'',$v);
+								break;
+							}
+							
+							
                             if(!isset($this->_router['action']))    $this->_router['action'] = 'index';
                             
                             // Get slug info
@@ -213,7 +218,8 @@ class UrlManager extends \yii\web\UrlManager
                                         
                                         break;
                                     case 2: // Box detail
-                                        $item = $this->getModel()->getBoxDetail(__ITEM_ID__);
+                                        $item = $category = $this->getModel()->getBoxDetail(__ITEM_ID__);
+                                        
                                         
                                         /**
                                          *
@@ -222,7 +228,7 @@ class UrlManager extends \yii\web\UrlManager
                                         /**
                                          *
                                          */
-                                        
+                                        Yii::$app->view->setCategory((object)$item);
                                         Yii::$app->view->setItem((object)$item);
                                         
                                         
@@ -239,6 +245,8 @@ class UrlManager extends \yii\web\UrlManager
                     if($br) break;
                     
                 }
+                
+                
             
                 $class = '\\frontend\\controllers\\' . ucfirst($this->_router['controller']) . 'Controller';
                  
@@ -247,10 +255,14 @@ class UrlManager extends \yii\web\UrlManager
                     unset($this->_router['action']);
                 }
                 
-                $request->url = '/' . implode('/', $this->_router);
+                $request->url = '/' . implode('/', $this->_router) ;
              
             }
-        
+            
+            define('__CATEGORY_ID__', isset($category['id']) ? $category['id'] : 0);
+            define('__CATEGORY_NAME__', isset($category['title']) ? $category['title'] : '');
+			define('__IS_DETAIL__', $isDetail);
+            
            if(isset($this->_router['action'])){
                 $this->addRules([
                     "<controller:\w+>/<action:\w+>"=>"<controller>/<action>"
@@ -469,6 +481,7 @@ class UrlManager extends \yii\web\UrlManager
          *  You can change to dynamic detected by ip address
          */
         defined('ADMIN_LANG') or define("ADMIN_LANG",SYSTEM_LANG);
+        defined('MODULE_LANG') or define("MODULE_LANG",SYSTEM_LANG);
         
         $language = SYSTEM_LANG;
         
@@ -492,8 +505,10 @@ class UrlManager extends \yii\web\UrlManager
         
         
         defined('__LANG__') or define("__LANG__", $language);
+		
+		Yii::$app->language = Yii::$app->l->language;
         
-        defined('__LANG2__') or define("__LANG2__", $language == 'en' ? SYSTEM_LANG : 'en');
+        defined('__LANG2__') or define("__LANG2__", $language == 'en-US' ? SYSTEM_LANG : 'en-US');
     }
     
     
@@ -596,7 +611,7 @@ class UrlManager extends \yii\web\UrlManager
         
         Yii::$app->setDevice($device);
         
-        $temp = $this->getTemplate();
+        $temp = $this->getModel()->getTemplate();
         
         
         if(!empty($temp)){
@@ -611,19 +626,44 @@ class UrlManager extends \yii\web\UrlManager
             
             define ('MAIN_LAYOUT', isset($temp['layout']) && $temp['layout'] != "" ? $temp['layout'] : 'main');
             
+            $themeView = '@app/views/' . __TEMP_NAME__;
+            
+            $themeUrl = '@web/themes/' . __TEMP_NAME__;
+            
+            $themePath = '@app/web/themes/' . __TEMP_NAME__;
+            
             $rsDir = Yii::getAlias('@web/themes/' . __TEMP_NAME__);
             if(__HAS_MOBILE__ && $device == 'mobile'){
                 $rsDir .= "/$device";
+                $themeView .= "/$device";
+                $themeUrl .= "/$device";
             }
             
             define('__RSDIR__', $rsDir);
             
-            define('__RSPATH__', __ROOT_PATH__  . __RSDIR__);
+            define('__RSPATH__', Yii::getAlias('@app/web') . __RSDIR__);
             
             define('__LIBS_DIR__', Yii::getAlias('@web/libs'));
             
-            define('__LIBS_PATH__', __ROOT_PATH__ . Yii::getAlias('@web/libs'));
-             
+            define('__LIBS_PATH__', Yii::getAlias('@app/web') . __LIBS_DIR__);
+            
+            /**
+             * Set theme
+             */
+             $viewComponent = Yii::$app->getComponents()['view'];
+             Yii::$app->setComponents([
+                 'view' =>  array_merge($viewComponent,[
+                     'theme' => [
+                         'class' =>  'izi\\web\\Theme',
+                         'basePath' => $themeView,
+                         'baseUrl' => $themeUrl,
+                         'pathMap' => [
+                             '@app/views' => $themeView,
+                             '@web'       =>    $themeUrl,  
+                         ],
+                     ],
+                 ])
+             ]);
             
         }
         
@@ -631,102 +671,6 @@ class UrlManager extends \yii\web\UrlManager
         
     }
     
-    
-    private function getTemplate(){
-        
-        $item = [];
-        
-        $params = [
-            __METHOD__,
-            __FILE__
-        ];
-        
-        $cached = Yii::$app->icache->getCache($params);
-        
-        if(!YII_DEBUG && !empty($cached)){
-            return $cached;
-        }
-        
-        if(defined('CATEGORY_TEMPLATE') && CATEGORY_TEMPLATE>0){
-            $item = DbRouter::findOne(["id" => CATEGORY_TEMPLATE]);
-            if(!empty($item)) {
-                $item = $item->toArray();
-            }
-        }
-        
-        if(empty($item)){
-            
-            $item = DbRouter::find()
-            ->select(['a.*'])
-            ->from(['a' => '{{%templates}}'])
-            ->innerJoin(['b' => '{{%temp_to_shop}}'], "a.id=b.temp_id")
-            ->where(
-            [
-                'b.state'=>__TEMPLATE_DOMAIN_STATUS__,
-                'b.sid'=>__SID__,
-                'b.lang'=>__LANG__,
-            ])
-            ->asArray()
-            ->one();   
-                
-                
-                  
-            if(empty($item)){
-                
-                $item = DbRouter::find()
-                ->select(['a.*'])
-                ->from(['a' => '{{%templates}}'])
-                ->innerJoin(['b' => '{{%temp_to_shop}}'], "a.id=b.temp_id")
-                ->where(
-                [
-                    'b.state'=>__TEMPLATE_DOMAIN_STATUS__,
-                    'b.sid'=>__SID__,
-                    //'b.lang'=>__LANG__,
-                ])
-                ->asArray()
-                ->one();
-                    
-                    
-                if(empty($item) && __TEMPLATE_DOMAIN_STATUS__ > 1){
-                    
-                    $item = DbRouter::find()
-                    ->select(['a.*'])
-                    ->from(['a' => '{{%templates}}'])
-                    ->innerJoin(['b' => '{{%temp_to_shop}}'], "a.id=b.temp_id")
-                    ->where(
-                        [
-                            'b.state'=>1,
-                            'b.sid'=>__SID__,
-                            'b.lang'=>__LANG__,
-                        ])
-                        ->asArray()
-                        ->one();
-                        
-                        if(empty($item)){
-                            
-                            $item = DbRouter::find()
-                            ->select(['a.*'])
-                            ->from(['a' => '{{%templates}}'])
-                            ->innerJoin(['b' => '{{%temp_to_shop}}'], "a.id=b.temp_id")
-                            ->where(
-                                [
-                                    'b.state'=>1,
-                                    'b.sid'=>__SID__,
-                                    //'b.lang'=>__LANG__,
-                                ])
-                                ->asArray()
-                                ->one();
-                                
-                        }
-                }
-            }
-                
-                
-        }
-        
-        Yii::$app->icache->store($item, $params);       
-        
-        return $item;
-    }
+     
     
 }

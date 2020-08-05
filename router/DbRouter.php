@@ -2,6 +2,8 @@
 
 namespace izi\router;
 
+use Yii;
+
 class DbRouter extends \yii\db\ActiveRecord
 {
     
@@ -21,7 +23,7 @@ class DbRouter extends \yii\db\ActiveRecord
             date('H')
         ];
         
-        $config = [];// Yii::$app->icache->getCache($params);
+        $config = Yii::$app->icache->getCache($params);
         
         if(!YII_DEBUG && !empty($config)){
             return $config;
@@ -31,7 +33,7 @@ class DbRouter extends \yii\db\ActiveRecord
             ->from(['a'=>'{{%domain_pointer}}'])
             ->innerJoin(['b'=>'{{%shops}}'],'a.sid=b.id')
             ->where(['a.domain'=>__DOMAIN__])->asArray()->one();
-            //Yii::$app->icache->store($config, $params);
+            Yii::$app->icache->store($config, $params);
             return $config;
         }
     }
@@ -171,6 +173,104 @@ class DbRouter extends \yii\db\ActiveRecord
             }
             return $item;
         }
+    }
+    
+    
+    public function getTemplate(){
+        
+        $item = [];
+        
+        $params = [
+            __METHOD__,
+            __FILE__
+        ];
+        
+        $cached = Yii::$app->icache->getCache($params);
+        
+        if(!YII_DEBUG && !empty($cached)){
+            return $cached;
+        }
+        
+        if(defined('CATEGORY_TEMPLATE') && CATEGORY_TEMPLATE>0){
+            $item = DbRouter::findOne(["id" => CATEGORY_TEMPLATE]);
+            if(!empty($item)) {
+                $item = $item->toArray();
+            }
+        }
+        
+        if(empty($item)){
+            
+            $item = DbRouter::find()
+            ->select(['a.*'])
+            ->from(['a' => '{{%templates}}'])
+            ->innerJoin(['b' => '{{%temp_to_shop}}'], "a.id=b.temp_id")
+            ->where(
+                [
+                    'b.state'=>__TEMPLATE_DOMAIN_STATUS__,
+                    'b.sid'=>__SID__,
+                    'b.lang'=>__LANG__,
+                ])
+                ->asArray()
+                ->one();
+                
+                
+                
+                if(empty($item)){
+                    
+                    $item = DbRouter::find()
+                    ->select(['a.*'])
+                    ->from(['a' => '{{%templates}}'])
+                    ->innerJoin(['b' => '{{%temp_to_shop}}'], "a.id=b.temp_id")
+                    ->where(
+                        [
+                            'b.state'=>__TEMPLATE_DOMAIN_STATUS__,
+                            'b.sid'=>__SID__,
+                            //'b.lang'=>__LANG__,
+                        ])
+                        ->asArray()
+                        ->one();
+                        
+                        
+                        if(empty($item) && __TEMPLATE_DOMAIN_STATUS__ > 1){
+                            
+                            $item = DbRouter::find()
+                            ->select(['a.*'])
+                            ->from(['a' => '{{%templates}}'])
+                            ->innerJoin(['b' => '{{%temp_to_shop}}'], "a.id=b.temp_id")
+                            ->where(
+                                [
+                                    'b.state'=>1,
+                                    'b.sid'=>__SID__,
+                                    'b.lang'=>__LANG__,
+                                ])
+                                ->asArray()
+                                ->one();
+                                
+                                if(empty($item)){
+                                    
+                                    $item = DbRouter::find()
+                                    ->select(['a.*'])
+                                    ->from(['a' => '{{%templates}}'])
+                                    ->innerJoin(['b' => '{{%temp_to_shop}}'], "a.id=b.temp_id")
+                                    ->where(
+                                        [
+                                            'b.state'=>1,
+                                            'b.sid'=>__SID__,
+                                            //'b.lang'=>__LANG__,
+                                        ])
+                                        ->asArray()
+                                        ->one();
+                                        
+                                }
+                        }
+                }
+                
+                
+        }
+        
+        Yii::$app->icache->store($item, $params);
+        
+        return $item;
     }
     
 }
