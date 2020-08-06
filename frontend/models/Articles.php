@@ -3,7 +3,7 @@ namespace izi\frontend\models;
 use Yii;
 use yii\db\Query;
 
-class Articles extends \izi\db\ActiveRecord
+class Articles extends \app\models\Articles
 {
     public $frontend;
     

@@ -9,7 +9,7 @@
 namespace izi\models;
 use Yii;
 use yii\db\Query;
-class Box extends \izi\db\ActiveRecord
+class Box extends \app\models\Box
 {
 	
 	public static function tableName(){
@@ -98,7 +98,44 @@ class Box extends \izi\db\ActiveRecord
 	        }
 	    }
 	    	
-	    $data = $r->orderBy(['position'=>SORT_ASC,'title'=>SORT_ASC])->asArray()->all();
+		$data = $r->orderBy(['position'=>SORT_ASC,'title'=>SORT_ASC])->asArray()->all();
+		
+		if(empty($data) && isset($params['migrate'])){
+			Yii::$app->frontend->migrate($params['migrate']);
+		}
+
 		return $this->populateData($data);
 	}
+
+
+
+	/**
+     * update 05/08/2020
+     */
+
+
+    public function migrate($data)
+    {
+        foreach($data['data'] as $b){
+			$item = Box::findOne(['sid' => __SID__, 'title' => $b['title'], 'module'=>$data['module']]);
+			if(empty($item)){
+				$item = new Box();
+				$item->code = randString(6);
+				$item->module = $data['module'];
+				$item->sid = __SID__;
+				if(isset($b['json_data'])){
+					$item->bizrule = json_encode($b['json_data']);
+					unset($b['json_data']);
+				}
+				
+				foreach($b as $k=>$v){
+					$item->$k = $v;
+				}
+
+				$item->save();
+			}
+		}
+	}
+	
+
 }

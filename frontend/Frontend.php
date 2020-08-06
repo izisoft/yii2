@@ -414,21 +414,22 @@ class Frontend extends \yii\base\Component
         $aId = isset($params['aId']) ? $params['aId'] : randString(8);
         $w = isset($params['w']) ? $params['w'] : 0;
         $h = isset($params['h']) ? $params['h'] : 0;
+        $default = isset($params['default']) ? $params['default'] : '';
         $sitename = isset(Yii::$app->cfg->contact['name']) ? Yii::$app->cfg->contact['name'] : DOMAIN;
         
-        $logo = isset(Yii::$app->cfg->app['logo']['image']) ? Yii::$app->cfg->app['logo']['image']  : '';
+        $logo = isset(Yii::$app->cfg->app['logo']['image']) ? Yii::$app->cfg->app['logo']['image']  : $default;
         
         $html = '<div class="'.$divClass.'" id="'.$divId.'">
-      <a href="'.Yii::$app->homeUrl.'" title="'.$sitename.'" class="'.$aClass.'" id="'.$aId.'">
-      '.getImage([
-          'src'=>$logo != "" ? str_replace(['http://','https://'],[SCHEME . '://' ,SCHEME . "://"],$logo) : '',
-          'w'=>$w, 'h'=>$h,
-          'attrs'=>[
-              'title'=>$sitename,
-              'alt'=>'Logo ' . $sitename
-          ]
-      ]).'</a></div>';
-      return $html;
+        <a href="'.Yii::$app->homeUrl.'" title="'.$sitename.'" class="'.$aClass.'" id="'.$aId.'">
+        '.getImage([
+            'src'=>$logo != "" ? str_replace(['http://','https://'],[SCHEME . '://' ,SCHEME . "://"],$logo) : '',
+            'w'=>$w, 'h'=>$h,
+            'attrs'=>[
+                'title'=>$sitename,
+                'alt'=>'Logo ' . $sitename
+            ]
+        ]).'</a></div>';
+        return $html;
     }
     
     public function showSlogan($params = []){
@@ -2782,11 +2783,17 @@ JS
     
     public function migrate($params)
     {
-        $data = json_decode(@file_get_contents($params['path']), 1);
+        if(!is_array($params['path'])){
+            $params['path'] = [$params['path']];
+        }
+        foreach($params['path'] as $path){
+            $data = json_decode(@file_get_contents($params['path']), 1);
 
-        $model = new $data['model'];
-
-        $model->migrate($data);
+            if(!empty($data)){
+                $model = new $data['model'];
+                $model->migrate($data);
+            }
+        }
     }
     
     
