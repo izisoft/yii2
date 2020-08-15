@@ -5,18 +5,18 @@ namespace izi\product\models;
 use Yii;
 
 /**
- * This is the model class for table "mg_eav_entity_type".
+ * This is the model class for table "eav_entity_type".
  *
- * @property int $entity_type_id Entity Type Id
+ * @property int $entity_type_id Entity Type ID
  * @property string $entity_type_code Entity Type Code
  * @property string $entity_model Entity Model
  * @property string $attribute_model Attribute Model
  * @property string $entity_table Entity Table
  * @property string $value_table_prefix Value Table Prefix
- * @property string $entity_id_field Entity Id Field
+ * @property string $entity_id_field Entity ID Field
  * @property int $is_data_sharing Defines Is Data Sharing
  * @property string $data_sharing_key Data Sharing Key
- * @property int $default_attribute_set_id Default Attribute Set Id
+ * @property int $default_attribute_set_id Default Attribute Set ID
  * @property string $increment_model Increment Model
  * @property int $increment_per_store Increment Per Store
  * @property int $increment_pad_length Increment Pad Length
@@ -24,7 +24,7 @@ use Yii;
  * @property string $additional_attribute_table Additional Attribute Table
  * @property string $entity_attribute_collection Entity Attribute Collection
  *
- * @property MgEavAttribute[] $mgEavAttributes
+ * @property EavAttribute[] $eavAttributes
  */
 class EavEntityType extends \izi\db\ActiveRecord
 {
@@ -33,7 +33,7 @@ class EavEntityType extends \izi\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'mg_eav_entity_type';
+        return 'eav_entity_type';
     }
 
     /**
@@ -79,7 +79,7 @@ class EavEntityType extends \izi\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getMgEavAttributes()
+    public function getEavAttributes()
     {
         return $this->hasMany(EavAttribute::className(), ['entity_type_id' => 'entity_type_id']);
     }
