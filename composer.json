@@ -32,7 +32,8 @@
 		"email" : "zinzinx8@gmail.com"
 	},
 	"require" : {
-		"php" : ">=5.4.0"
+		"php" : ">=5.4.0",
+		"izisoft/yii2-helpers":"dev-master"
 	},
 	"autoload" : {
 		"psr-4" : {
