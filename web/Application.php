@@ -48,6 +48,8 @@ class Application extends \yii\web\Application
                 'class' =>  'izi\config\Config'
             ],
             
+            'icache'	            =>	['class'	=>	'izi\\cache\\Cache'],
+            
             'api'   =>  [
                 'class' =>  'izi\api\Api'
             ],
