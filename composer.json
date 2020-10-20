@@ -38,11 +38,5 @@
 	"autoload" : {
 		"psr-4" : {
 			"izi\\" : ""
-		}
-	},
-	"extra" : {
-		"branch-alias" : {
-			"dev-master" : "2.0.x-dev"
-		}
-	}
+		}}
 }
