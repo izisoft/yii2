@@ -99,28 +99,30 @@ class Application extends \yii\web\Application
                 
             ],
             
-            'pos'   =>  [
-                'class' =>  'izi\pos\Pos',
+            // 'pos'   =>  [
+            //     'class' =>  'izi\pos\Pos',
                 
-            ],
+            // ],
             
             'request'   =>  [
                 'class' =>  'izi\web\Request'
             ],
-            'import'   =>  [
-                'class' =>  'izi\import\Import'
-            ],
+            
+            // 'import'   =>  [
+            //     'class' =>  'izi\import\Import'
+            // ],
            
             // Frontend component
             'frontend'	=>	['class'	=>	'izi\\frontend\\Frontend'],
+            'f'	=>	['class'	=>	'izi\\frontend\\Frontend'],
             'backend'	=>	[
                 'class'	=>	'izi\backend\Backend'
             ],
             
             // Customer manager
             'customer' => [
-                'identityClass' => 'izi\models\Customer',
-                'class'	=>	'izi\web\Customer',
+                'identityClass' => 'izi\user\models\Customer',
+                'class'	=>	'izi\user\Customer',
                 'enableAutoLogin' => true,
                 'identityCookie' => ['name' => '_identity-customer-frontend', 'httpOnly' => true],
                 
@@ -128,21 +130,23 @@ class Application extends \yii\web\Application
             
             // Member manager (site member - extends customer)
             'member' => [
-                'identityClass' => 'izi\member\models\Member',
+                'identityClass' => 'izi\user\models\Member',
 //                 'class'	=>	'izi\web\Member',
-                'class'	=>	'izi\member\Member',
+                'class'	=>	'izi\user\Member',
                 'enableAutoLogin' => true,
                 'identityCookie' => ['name' => '_identity-member-frontend', 'httpOnly' => true],
                 
             ],
-            'collaborator' => [
-                'identityClass' => 'izi\collaborator\models\Member',
-//                 'class'	=>	'izi\web\Member',
-                'class'	=>	'izi\collaborator\Member',
-                'enableAutoLogin' => true,
-                'identityCookie' => ['name' => '_identity-collaborator-frontend', 'httpOnly' => true],
+
+            // Cooperator
+//             'collaborator' => [
+//                 'identityClass' => 'izi\collaborator\models\Member',
+// //                 'class'	=>	'izi\web\Member',
+//                 'class'	=>	'izi\collaborator\Member',
+//                 'enableAutoLogin' => true,
+//                 'identityCookie' => ['name' => '_identity-collaborator-frontend', 'httpOnly' => true],
                 
-            ],
+//             ],
             
             // User manager (staff only)
             'user' => [
@@ -160,9 +164,9 @@ class Application extends \yii\web\Application
             ],
             
             // SIM
-            'sim'	=>	[
-                'class'	=> 'izi\sim\Simonline'
-            ],
+            // 'sim'	=>	[
+            //     'class'	=> 'izi\sim\Simonline'
+            // ],
             
             // TRanslate site multilang 
             't'	=>	[
@@ -201,7 +205,7 @@ class Application extends \yii\web\Application
             
             // Place manager
             'place'	=>	[
-                'class'	=>	'izi\web\Place'
+                'class'	=>	'izi\local\Place'
             ],
             
             // Local manager (Country, province, distrist, ...)
@@ -237,16 +241,16 @@ class Application extends \yii\web\Application
              * Promotion
              */
             
-            'promotion'=>[
-                'class'=>'izi\promotion\Promotion'
-            ],
+            // 'promotion'=>[
+            //     'class'=>'izi\promotion\Promotion'
+            // ],
             
             /**
              * INTRANET
              */
-            'tour'=>[
-                'class'=>'izi\tour\Tour'
-            ],
+            // 'tour'=>[
+            //     'class'=>'izi\tour\Tour'
+            // ],
             
             /**
              * end intranet
