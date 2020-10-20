@@ -1,5 +1,5 @@
 {
-	"name" : "izisoft/yii2-app",
+	"name" : "izisoft/yii2",
 	"description" : "Yii2 Application by Izisoft",
 	"keywords" : [
 		"yii2",
@@ -37,5 +37,6 @@
 	"autoload" : {
 		"psr-4" : {
 			"izi\\" : ""
-		}}
+		}
+	}
 }
