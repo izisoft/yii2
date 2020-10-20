@@ -1,4 +1,5 @@
 # Yii2 app
+---------------------------------------------------------------
 ### reuired
 - https://github.com/izisoft/yii2-router
 - https://github.com/izisoft/yii2-theme
