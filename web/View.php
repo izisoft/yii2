@@ -44,7 +44,7 @@ use yii\web\JqueryAsset;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class View2 extends \yii\base\View
+class View extends \yii\base\View
 {
     /**
      * izi config
@@ -1270,7 +1270,7 @@ class View2 extends \yii\base\View
 		
 		$moduleName = Yii::$app->controller->module->id;
 		
-        $baseUrl = rtrim(Yii::$app->homeUrl,'/');
+        $baseUrl = rtrim(SITE_ADDRESS,'/');
         
 //         $baseUrl = rtrim(\yii\helpers\Url::home(true),'/');
         

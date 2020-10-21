@@ -3,7 +3,7 @@
 namespace izi\config;
 
 use Yii;
-use app\models\SiteConfigs;
+use izi\models\SiteConfigs;
 
 class Config extends \yii\base\Component
 {
@@ -220,12 +220,12 @@ class Config extends \yii\base\Component
     
     public function setupSeoConfig()
     {
-        $seo = \app\models\SiteConfigs::getConfigs('SEO2', null);
+        $seo = \izi\models\SiteConfigs::getConfigs('SEO2', null);
         
 //         view($seo);
         
         if(empty($seo)){
-            $seo = \app\models\SiteConfigs::getConfigs('SEO');
+            $seo = \izi\models\SiteConfigs::getConfigs('SEO');
             
             if(isset($seo['domain_type']) && $seo['domain_type'] == 'multiple'){
                 $domains = isset($seo['domain']) && $seo['domain'] != '' ? explode(',', $seo['domain']) : [];
@@ -335,9 +335,9 @@ class Config extends \yii\base\Component
             
             $key = 'ADMIN_CONFIGS';
             
-            $cfg = \app\models\SiteConfigs::getConfigs($key);
+            $cfg = \izi\models\SiteConfigs::getConfigs($key);
             if(empty($cfg)){
-                $cfg = \app\models\SiteConfigs::getConfigs($key, null);
+                $cfg = \izi\models\SiteConfigs::getConfigs($key, null);
             }
             
             $this->_adminConfigs = $cfg;
@@ -356,10 +356,10 @@ class Config extends \yii\base\Component
 	
     public function setupAppConfig()
     {
-        $cfg = \app\models\SiteConfigs::getConfigs($this->config_key);
+        $cfg = \izi\models\SiteConfigs::getConfigs($this->config_key);
         
         if(empty($cfg)){
-            $cfg = \app\models\SiteConfigs::getConfigs($this->config_key, null);
+            $cfg = \izi\models\SiteConfigs::getConfigs($this->config_key, null);
         }
          
         
@@ -680,7 +680,7 @@ class Config extends \yii\base\Component
         if(isset($fx1[$respon_code]) && is_array($fx1[$respon_code])){
             $fx['email'] = $fx1[$respon_code];
         }else{
-            $fx1 = \app\models\SiteConfigs::getConfigs('EMAILS_RESPON');
+            $fx1 = \izi\models\SiteConfigs::getConfigs('EMAILS_RESPON');
             if(isset($fx1[$respon_code2]) && isset($fx1[$respon_code2]['email'])){
                 $fx['email'] = $fx1[$respon_code2]['email'];
             }            
@@ -693,14 +693,14 @@ class Config extends \yii\base\Component
     
     public function getUserConfig($key)
     {
-        $cfg = \app\models\SiteConfigs::getConfigs($key);
+        $cfg = \izi\models\SiteConfigs::getConfigs($key);
         
         return $cfg;
     }
     
     public function setUserConfig($key, $value, $replace = false)
     {
-        \app\models\SiteConfigs::updateData($value, [
+        \izi\models\SiteConfigs::updateData($value, [
             'sid'=>__SID__,
             'code'=>$key,
             'lang'=>__LANG__

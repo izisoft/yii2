@@ -101,6 +101,10 @@ class Application extends \yii\web\Application
                 
             ],
             
+            'view'	    =>	[
+                'class'	=>	'izi\web\View',
+            ],
+            
             // 'pos'   =>  [
             //     'class' =>  'izi\pos\Pos',
                 
@@ -109,6 +113,9 @@ class Application extends \yii\web\Application
             'request'   =>  [
                 'class' =>  'izi\web\Request'
             ],
+            
+            'l'	                    =>	['class'	=>	'izi\\language\\Language'],
+            'c'	                    =>	['class'	=>	'izi\\currencies\\Currencies'],
             
             // 'import'   =>  [
             //     'class' =>  'izi\import\Import'
