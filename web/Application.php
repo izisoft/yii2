@@ -104,6 +104,10 @@ class Application extends \yii\web\Application
             'view'	    =>	[
                 'class'	=>	'izi\web\View',
             ],
+
+            'store'	    =>	[
+                'class'	=>	'izi\web\Store',
+            ],
             
             // 'pos'   =>  [
             //     'class' =>  'izi\pos\Pos',
