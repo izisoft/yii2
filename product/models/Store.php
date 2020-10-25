@@ -1,6 +1,6 @@
 <?php
 
-namespace izi\models;
+namespace izi\product\models;
 
 use Yii;
 
@@ -24,7 +24,7 @@ use Yii;
  * @property StoreGroup $group
  * @property StoreWebsite $website
  */
-class Store extends \yii\db\ActiveRecord
+class Store extends \izi\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -44,7 +44,7 @@ class Store extends \yii\db\ActiveRecord
             [['name'], 'required'],
             [['code'], 'string', 'max' => 32],
             [['name'], 'string', 'max' => 255],
-            
+            [['code'], 'unique'],
             [['group_id'], 'exist', 'skipOnError' => true, 'targetClass' => StoreGroup::className(), 'targetAttribute' => ['group_id' => 'group_id']],
             [['website_id'], 'exist', 'skipOnError' => true, 'targetClass' => StoreWebsite::className(), 'targetAttribute' => ['website_id' => 'website_id']],
         ];

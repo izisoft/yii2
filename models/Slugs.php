@@ -30,7 +30,7 @@ use Yii;
  *
  * @property Shops $s
  */
-class Slugs extends \yii\db\ActiveRecord
+class Slugs extends \izi\db\ActiveRecord
 {
     /**
      * {@inheritdoc}

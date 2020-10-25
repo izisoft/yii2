@@ -1280,11 +1280,11 @@ class View extends \yii\base\View
         
         defined('__DOMAIN_ADMIN__') || define('__DOMAIN_ADMIN__', false);
         
-        $social = Yii::$app->cfg->social;
+        //$social = Yii::$app->cfg->social;
         
-        if(isset($social->google)){
-            unset($social->google);
-        }
+        //if(isset($social->google)){
+        //    unset($social->google);
+        //}
 		
         $cfg = array(
             '_csrf-frontend' => Yii::$app->request->csrfToken,
@@ -1327,7 +1327,7 @@ class View extends \yii\base\View
             //    'appId'=>1729388797358505,
             //    'version'=>'v3.1'
             //]),
-			'social'=>$social,
+			//'social'=>$social,
             'debug'=>YII_DEBUG,
             'editor'    =>  [
                 'skin'  =>  'icy_orange',
