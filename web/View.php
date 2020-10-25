@@ -204,9 +204,9 @@ class View extends \yii\base\View
         ]);
 
         
-        if(defined('__IS_DETAIL__')){
-            Yii::$app->statics->visited->updateVisited();
-        }
+        // if(defined('__IS_DETAIL__')){
+        //     Yii::$app->statics->visited->updateVisited();
+        // }
         
         
         $this->clear();

@@ -102,3 +102,32 @@ function cu($param, $ab = false, $option = []){
     
     return \yii\helpers\Url::to($param,$ab) ;
 }
+
+/**
+*   return full url http://domain.com/slug
+*/
+function getAbsoluteUrl($url, $params = []){
+    if(strpos($url,'http://') === 0 || strpos($url,'https://') === 0 || substr($url, 0,2) == '//'){
+        if(substr($url, 0,2) == '//'){
+            return SCHEME . ':' .$url;
+        }
+        return $url;
+    }
+    if(!(substr($url, 0,1) == '/')){
+        $url = '/' . $url;
+    }
+    
+    $domain = isset($params['domain']) ? $params['domain'] : null;
+    
+    if($domain != null){
+        if(strpos($domain,'http://') === 0 || strpos($domain,'https://') === 0 || substr($domain, 0,2) == '//'){
+            if(substr($domain, 0,2) == '//'){
+                $domain = SCHEME . ':' .$domain;
+            }                 
+        }
+        
+        return rtrim($domain, '/') . $url; 
+    }
+    
+    return \yii\helpers\Url::to($url,true);
+}
