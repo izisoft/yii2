@@ -1,8 +1,6 @@
 # Yii2 app
 ---------------------------------------------------------------
-### reuired
-- https://github.com/izisoft/yii2-router
-- https://github.com/izisoft/yii2-theme
+
 ### Sơ lược về izisoft/yii2
 Tùy chỉnh bộ định tuyến Yii2 theo mô hình url 1 (hoặc nhiều) cấp
 
