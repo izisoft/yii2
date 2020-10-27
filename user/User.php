@@ -232,7 +232,7 @@ class User extends \yii\web\User
 	public function getBranch_Id(){
 		$u = $this->getIdentity();
 		if($u->branch_id == 0){
-			$branch = \app\modules\admin\models\Branches::getDefaultItem();
+			$branch = \app\modules\admin\v1\models\Branches::getDefaultItem();
 			if(!empty($branch)){
 				$u->branch_id = $branch['id'];
 			}
@@ -241,11 +241,11 @@ class User extends \yii\web\User
 	}
 
 	public function getBranch(){
-		return \app\modules\admin\models\Branches::getItem($this->getBranch_Id());
+		return \app\modules\admin\v1\models\Branches::getItem($this->getBranch_Id());
 	}
 
 	public function getCurrentUser(){
-		return \app\modules\admin\models\Users::getItem($this->getId());
+		return \app\modules\admin\v1\models\Users::getItem($this->getId());
 	}
 
 	public function getAllUserGroup(){

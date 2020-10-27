@@ -1,133 +1,63 @@
-<?php 
+<?php
+namespace izi\helpers;
 
-function trim_space($text)
+class Helper extends \yii\helpers\Html
 {
-    if(!is_string($text)) return $text;
-    return trim(preg_replace('/\s+/', ' ', $text));
-}
-
-function view($param, $label = null, $exit = false)
-{
-    if(YII_DEBUG && !Yii::$app->request->isAjax){
-        
-        ini_set('memory_limit', -1);
-        
-        echo "$label:<hr><pre>";
-        var_dump($param);
-        echo "</pre><hr>";
-        
-        if($exit) exit(0);
-    }
-}
-
-function dev($param, $label = null, $exit = false)
-{
-    if(YII_DEBUG && !Yii::$app->request->isAjax){
-        echo "<pre>";
-        echo($param);
-        echo "</pre>";
-    }
-}
-function cprice($val = 0){
     
-    if(!(strlen($val) > 0)){
-        return 0;
-    }
-    
-    if(is_string($val)){
-        if(strlen($val) == 0) return $val;
-        $n = str_replace(',', '', $val);
-        return is_numeric($n) ? $n : 0;
-    }elseif (is_numeric($val)){
-        return $val;
-    }
-    return 0;
-}
-function uh($text,$i = 1){
-    if(!is_string($text)) return $text;
-    $h = htmlspecialchars_decode(stripslashes($text),ENT_QUOTES );
-    switch ($i){
-        case 'quot': $h = str_replace('"', '&quot;', $h);break;
-        case 'nobr': $h = str_replace(array('<br/>','<br>','</br>'), array(' ',' ',' '), $h);break;
-        
-    }
-    if(is_numeric($i) && $i > 1){    while ($i > 1){	$i--;   	return uh($h);    }    }
-    return $h;
-}
-
-function uhs($text, $step = 1)
-{
-    return htmlspecialchars($text, $step);
-}
-
-function trim_all($string,$pattern  = '/(\s\s+)|(\\t|\\r|\\n|\\0\\x0B)/'){
-    return preg_replace($pattern, ' ', trim($string));
-}
-
-
-
-function getParam($name , $defaultValue = null) {
-    return \Yii::$app->request->get($name, $defaultValue);
-}
-
-
-function post($element, $defaultValue = null){
-    $post = Yii::$app->request->post($element,$defaultValue);
-    
-    return replaceDateMask($post);
-}
-
-function cu($param, $ab = false, $option = []){    
-    
-    if($param === false){
-        $category_id = isset($option['category_id']) ? $option['category_id'] : 0;
-        if($category_id>0){
-            //$item = \app\models\Slugs::getItem('',$category_id);
-            //$param = DS . $item['url'];
+    public static function isEmail($email)
+    {         
+        if(filter_var($email, FILTER_VALIDATE_EMAIL) !==false){
+            return true;
         }
-    }else{
-        //$string = is_array($param) ? $param[0] : $param;
-        if(!is_array($param)){
-            $string = $param;
-            $param = [$string];
+        return false;        
+    }
+    
+    public static function renderTimeLimit($from, $to, $language = __LANG__){
+        
+        $time1 = !is_numeric($from) ? strtotime($from) : $from;
+        
+        $time2 = !is_numeric($to) ? strtotime($to) : $to;
+        
+        $d1 = date('d', $time1);
+        $d2 = date('d', $time2);
+        
+        $m1 = date('m', $time1);
+        $m2 = date('m', $time2);
+        
+        $y1 = date('y', $time1);
+        $y2 = date('y', $time2);
+        $year1 = '';
+        if($language == 'vi-VN'){
+            if($m2>$m1){
+                
+                $days = "$d1/$m1-$d2/$m2/";
+            }else{
+                $days = "$d1-$d2/$m2/";
+            }
+            
+            if($y2>$y1){
+                $year1 = $y1;
+            } 
+            $period = $d1 . ($m2!=$m1 ? "/$m1" : '') . ($y2>$y1 ? "/$y1" : "") . "-$d2/$m2/$y2";
+            
         }else{
-            $string = $param[0];
-        }
-        if(defined('__DOMAIN_ADMIN__') && __DOMAIN_ADMIN__ && substr($string, 0,1) != '/'){
-            $string = '/' . $string;
-            $param[0] = $string;
-        }
-    }
-    
-    
-    return \yii\helpers\Url::to($param,$ab) ;
-}
 
-/**
-*   return full url http://domain.com/slug
-*/
-function getAbsoluteUrl($url, $params = []){
-    if(strpos($url,'http://') === 0 || strpos($url,'https://') === 0 || substr($url, 0,2) == '//'){
-        if(substr($url, 0,2) == '//'){
-            return SCHEME . ':' .$url;
-        }
-        return $url;
-    }
-    if(!(substr($url, 0,1) == '/')){
-        $url = '/' . $url;
-    }
-    
-    $domain = isset($params['domain']) ? $params['domain'] : null;
-    
-    if($domain != null){
-        if(strpos($domain,'http://') === 0 || strpos($domain,'https://') === 0 || substr($domain, 0,2) == '//'){
-            if(substr($domain, 0,2) == '//'){
-                $domain = SCHEME . ':' .$domain;
-            }                 
+            if($m2>$m1){
+                $m1 = date('M', $time1);
+                $m2 = date('M', $time2);
+                $days = "$d1 $m1-$d2 $m2 ";
+            }else{
+                $m2 = date('M', $time2);
+                $days = "$d1-$d2 $m2 ";
+            }
+            
+            if($y2>$y1){
+                $year1 = $y1;
+            } 
+            $period = $d1 . ($m2!=$m1 ? "/$m1" : '') . ($y2>$y1 ? "/$y1" : "") . "-$d2/$m2/$y2";
         }
         
-        return rtrim($domain, '/') . $url; 
+        return $period;
+        
     }
-    
-    return \yii\helpers\Url::to($url,true);
 }
