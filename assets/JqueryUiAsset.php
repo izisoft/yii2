@@ -11,7 +11,7 @@ use Yii;
  
 class JqueryUiAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/jquery-ui/jquery-ui-mini';
+    public $sourcePath = '@bower/jquery-ui/jquery-ui-1.12.1.custom';
     
     
     public $css = [
@@ -19,7 +19,8 @@ class JqueryUiAsset extends \yii\web\AssetBundle
         'jquery-ui.theme.min.css', 
     ];
     public $js = [
-            'https://code.jquery.com/ui/1.12.1/jquery-ui.js'
+            'jquery-ui.js',
+            // 'http://demo.hinode.nozomijapan.vn/libs/jquery-ui-1.12.1/jquery-ui.min.js'
     ];
      
     
