@@ -64,10 +64,27 @@ class UrlManager extends \yii\web\UrlManager
      */
 
     private $_moduleNames;
-    public function getModuleNames(){
+    public function getModuleNames(){        
+
         if($this->_moduleNames == null){
-            $this->_moduleNames = array_keys(Yii::$app->getModules());
+            $this->_moduleNames = [];
+            $modules = Yii::$app->getModules();
+            if(!empty($modules)){
+                foreach($modules as $moduleName => $r){
+                    if(in_array($moduleName, ['gii', 'debug'])) continue;                    
+                    if(is_array($r) && isset($r['modules'])){
+                        foreach($r['modules'] as $md2 => $val){
+                            $this->_moduleNames[] = "$moduleName/$md2";
+                        }
+                    }else{
+                        $this->_moduleNames[] = $moduleName;
+                    }
+                    
+                }
+            }
+
         }
+     
         return $this->_moduleNames;
     }
 
@@ -121,7 +138,7 @@ class UrlManager extends \yii\web\UrlManager
             'URL_PORT'=>$port,
             'URL_PATH'=>$a['path'],
             '__TIME__'=>time(),
-            'DS' => DIRECTORY_SEPARATOR,
+            'DS' => '/',
             'ROOT_USER'=>'root',
             'ADMIN_USER'=>'admin',
             'DEV_USER'=>'dev',
@@ -216,26 +233,28 @@ class UrlManager extends \yii\web\UrlManager
         defined('__DOMAIN_MODULE__') or define('__DOMAIN_MODULE__', $domain_module);
         defined('__DOMAIN_MODULE_NAME__') or define('__DOMAIN_MODULE_NAME__', $domain_module_name);
 
-
         // Parse router
+        
+        $router = [];
 
-        $router = array_filter(explode(DIRECTORY_SEPARATOR, trim(URL_PATH, DIRECTORY_SEPARATOR)));
+        $pattern = '/^('.str_replace('/','\\/',implode('|', $this->getModuleNames())).')\/?([\w\/\-\+]+)?/i';
+
+        preg_match($pattern, trim(URL_PATH, DS), $m);
+
+        if(!empty($m)){
+            $this->_router['module'] = $m[1];
+            if(isset($m[2])){
+                $router = explode(DS, trim($m[2], DS));
+            }
+        }else{
+            $router = explode(DS, trim(URL_PATH, DS));
+        }
+     
 
         if(!empty($router)){
-            if(!isset($this->_router['module']) && in_array($router[0], $this->getModuleNames())){
-                $this->_router['module'] = array_shift($router);
-            }
 
             if(!empty($router)){
-//                 foreach ($router as $v) {
 
-//                     if(isset(Yii::$app->view->specialPage) && !(DOMAIN_LAYOUT != "" && in_array(DOMAIN_LAYOUT, Yii::$app->view->specialPage))
-//                         && in_array($v, Yii::$app->view->specialPage)){
-//                             define('SPECIAL_LAYOUT', array_shift($router));
-//                     }
-
-//                     break;
-//                 }
                 foreach ($router as $k=>$v) {
                     switch ($k) {
                         case 0: // controller
@@ -253,7 +272,7 @@ class UrlManager extends \yii\web\UrlManager
             }
 
         }
-
+ 
         if(isset($this->_router['module']) && $this->_router['module'] != ""){
 
             $this->addRules([
@@ -272,8 +291,6 @@ class UrlManager extends \yii\web\UrlManager
 
             defined('MODULE_ADDRESS') || define('MODULE_ADDRESS', __DOMAIN_MODULE__ ? cu(['/']) : cu(['/' . __MODULE_NAME__]));
 
-
-
             Yii::$app->user->loginUrl = [
 
                 (defined('__DOMAIN_MODULE__') && __DOMAIN_MODULE__ ? '' : __MODULE_NAME__) . '/login'
@@ -282,10 +299,8 @@ class UrlManager extends \yii\web\UrlManager
             $request->router = $this->_router;
             $moduleClass = "\\app\\modules\\{$this->_router['module']}\\Module";
 
-
             if(method_exists($moduleClass, 'parseRequest')){
                 $moduleClass::parseRequest($request, $this);
-
 
             }else{
 
@@ -293,7 +308,6 @@ class UrlManager extends \yii\web\UrlManager
                     $this->$method_name($request);
                 }
             }
-
 
             //  Setup language
             $this->setLanguage($this->_slug);

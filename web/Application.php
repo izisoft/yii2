@@ -36,6 +36,7 @@ class Application extends \yii\web\Application
     
     public function bootstrap(){
         \Yii::setAlias('@izi', dirname(__DIR__));
+        
         return parent::bootstrap();
         
     }

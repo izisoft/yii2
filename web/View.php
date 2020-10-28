@@ -1266,8 +1266,8 @@ class View extends \yii\base\View
 	
 	// Event trước khi gọi hàm endBody();
 	
-    protected function beforeEndBody(){
-		
+    protected function beforeEndBody(){                
+        
 		$moduleName = Yii::$app->controller->module->id;
 		
         $baseUrl = rtrim(SITE_ADDRESS,'/');
