@@ -119,7 +119,7 @@ class UrlManager extends \yii\web\UrlManager
         $replacement = ['',''];
         $url = preg_replace($pattern, $replacement, $url);
         $a = parse_url($url);
-        $a['host'] = strtolower($a['host']);
+        $a['host'] = strtolower(preg_replace('/:\d+$/i', '', $a['host']));
 
         return [
             'FULL_URL'=>$url,
