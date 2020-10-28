@@ -292,9 +292,7 @@ class UrlManager extends \yii\web\UrlManager
             defined('MODULE_ADDRESS') || define('MODULE_ADDRESS', __DOMAIN_MODULE__ ? cu(['/']) : cu(['/' . __MODULE_NAME__]));
 
             Yii::$app->user->loginUrl = [
-
                 (defined('__DOMAIN_MODULE__') && __DOMAIN_MODULE__ ? '' : __MODULE_NAME__) . '/login'
-
             ];
             $request->router = $this->_router;
             $moduleClass = "\\app\\modules\\{$this->_router['module']}\\Module";
