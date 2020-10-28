@@ -19,7 +19,7 @@ class JqueryUiAsset extends \yii\web\AssetBundle
         'jquery-ui.theme.min.css', 
     ];
     public $js = [
-            'jquery-ui.min.js'
+            'https://code.jquery.com/ui/1.12.1/jquery-ui.js'
     ];
      
     

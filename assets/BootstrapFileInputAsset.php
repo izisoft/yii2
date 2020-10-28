@@ -9,23 +9,24 @@ namespace izi\assets;
 
 use Yii;
  
-class KnobAsset extends \yii\web\AssetBundle
+class BootstrapFileInputAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/knob';
+    public $sourcePath = '@bower/bootstrap';
     
     
- 
+    public $css = [
+        // 'css/bootstrap-datepicker.min.css',
+      
+    ];
     public $js = [
-        'js/jquery.knob.js'
+        'bootstrap.file-input.js',
     ];
      
     
     public $depends = [        
         'yii\web\JqueryAsset',
+        // 'izi\assets\MomentAsset',
+        // 'izi\assets\BootstrapAsset',
     ];
-    
-    public function init()
-    {
-         
-    }
+     
 }

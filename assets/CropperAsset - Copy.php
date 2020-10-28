@@ -9,23 +9,27 @@ namespace izi\assets;
 
 use Yii;
  
-class KnobAsset extends \yii\web\AssetBundle
+class CropperAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/knob';
+    public $sourcePath = '@bower/cropper/dist';
     
     
- 
+    public $css = [
+        'cropper.min.css'
+      
+    ];
     public $js = [
-        'js/jquery.knob.js'
+        'cropper.min.js'
     ];
      
     
     public $depends = [        
         'yii\web\JqueryAsset',
+ 
     ];
     
     public function init()
     {
-         
+ 
     }
 }
