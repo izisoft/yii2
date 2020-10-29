@@ -105,6 +105,7 @@ class UrlManager extends \yii\web\UrlManager
         }
 
         $sp = strtolower($s['SERVER_PROTOCOL']);
+
         $protocol = substr($sp, 0, strpos($sp, '/')) . (($ssl) ? 's' : '');
 
         $SERVER_PORT = isset($s['SERVER_PORT']) ? $s['SERVER_PORT'] : 80;
@@ -252,8 +253,7 @@ class UrlManager extends \yii\web\UrlManager
             }
         }else{
             $router = explode(DS, trim(URL_PATH, DS));
-        }
-     
+        }     
 
         if(!empty($router)){
 
@@ -283,7 +283,20 @@ class UrlManager extends \yii\web\UrlManager
                 '/'=>$this->_router['module'] . "/default/index",
                 '<module:\w+>/<alias:login|logout|forgot>'=>'<module>/default/<alias>',
             ]);
+            // custom rule
 
+            $fp = Yii::getAlias(implode('/', [
+                "@module",
+                $this->_router['module'],
+                'config',
+                'rule.php'
+            ]));
+            
+            if(file_exists($fp)){
+                $this->addRules(require $fp);
+            }
+
+            
             // set rule for module
             define('__IS_MODULE__',true);
 
