@@ -105,6 +105,7 @@ class UrlManager extends \yii\web\UrlManager
         }
 
         $sp = strtolower($s['SERVER_PROTOCOL']);
+
         $protocol = substr($sp, 0, strpos($sp, '/')) . (($ssl) ? 's' : '');
 
         $SERVER_PORT = isset($s['SERVER_PORT']) ? $s['SERVER_PORT'] : 80;
@@ -118,7 +119,11 @@ class UrlManager extends \yii\web\UrlManager
         $pattern = ['/index\.php\//','/index\.php/'];
         $replacement = ['',''];
         $url = preg_replace($pattern, $replacement, $url);
+        
         $a = parse_url($url);
+        /**
+         * replace url domain.com:8080 => domain.com
+         */
         $a['host'] = strtolower(preg_replace('/:\d+$/i', '', $a['host']));
 
         return [
@@ -248,8 +253,7 @@ class UrlManager extends \yii\web\UrlManager
             }
         }else{
             $router = explode(DS, trim(URL_PATH, DS));
-        }
-     
+        }     
 
         if(!empty($router)){
 
@@ -279,7 +283,20 @@ class UrlManager extends \yii\web\UrlManager
                 '/'=>$this->_router['module'] . "/default/index",
                 '<module:\w+>/<alias:login|logout|forgot>'=>'<module>/default/<alias>',
             ]);
+            // custom rule
 
+            $fp = Yii::getAlias(implode('/', [
+                "@module",
+                $this->_router['module'],
+                'config',
+                'rule.php'
+            ]));
+            
+            if(file_exists($fp)){
+                $this->addRules(require $fp);
+            }
+
+            
             // set rule for module
             define('__IS_MODULE__',true);
 
@@ -295,9 +312,16 @@ class UrlManager extends \yii\web\UrlManager
                 (defined('__DOMAIN_MODULE__') && __DOMAIN_MODULE__ ? '' : __MODULE_NAME__) . '/login'
             ];
             $request->router = $this->_router;
-            $moduleClass = "\\app\\modules\\{$this->_router['module']}\\Module";
+            
+            $moduleClass = str_replace('/','\\', "\\app\\modules\\{$this->_router['module']}\\Module");
 
+            //  Setup language
+            $this->setLanguage($this->_slug);
+            // Setup template
+            $this->setTemplate($this->_router);
+            
             if(method_exists($moduleClass, 'parseRequest')){
+
                 $moduleClass::parseRequest($request, $this);
 
             }else{
@@ -307,10 +331,7 @@ class UrlManager extends \yii\web\UrlManager
                 }
             }
 
-            //  Setup language
-            $this->setLanguage($this->_slug);
-            // Setup template
-            $this->setTemplate($this->_router);
+            
 
         }else{
             $this->addRules([
@@ -941,5 +962,20 @@ class UrlManager extends \yii\web\UrlManager
 
     }
 
+    public function getRouter()
+    {
+        return $this->_router;
+    }
 
+    public function setRouter($key, $value)
+    {
+        $this->_router[$key] = $value;
+        return $this->_router;
+    }
+
+    public function unsetRouter($key)
+    {
+        if(isset($this->_router[$key])) unset($this->_router[$key]);
+        return $this->_router;
+    }
 }
