@@ -121,9 +121,11 @@ class UrlManager extends \yii\web\UrlManager
         $url = preg_replace($pattern, $replacement, $url);
         
         $a = parse_url($url);
+
         /**
          * replace url domain.com:8080 => domain.com
          */
+         
         $a['host'] = strtolower(preg_replace('/:\d+$/i', '', $a['host']));
 
         return [
