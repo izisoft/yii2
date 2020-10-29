@@ -312,9 +312,16 @@ class UrlManager extends \yii\web\UrlManager
                 (defined('__DOMAIN_MODULE__') && __DOMAIN_MODULE__ ? '' : __MODULE_NAME__) . '/login'
             ];
             $request->router = $this->_router;
-            $moduleClass = "\\app\\modules\\{$this->_router['module']}\\Module";
+            
+            $moduleClass = str_replace('/','\\', "\\app\\modules\\{$this->_router['module']}\\Module");
 
+            //  Setup language
+            $this->setLanguage($this->_slug);
+            // Setup template
+            $this->setTemplate($this->_router);
+            
             if(method_exists($moduleClass, 'parseRequest')){
+
                 $moduleClass::parseRequest($request, $this);
 
             }else{
@@ -324,10 +331,7 @@ class UrlManager extends \yii\web\UrlManager
                 }
             }
 
-            //  Setup language
-            $this->setLanguage($this->_slug);
-            // Setup template
-            $this->setTemplate($this->_router);
+            
 
         }else{
             $this->addRules([
@@ -958,5 +962,20 @@ class UrlManager extends \yii\web\UrlManager
 
     }
 
+    public function getRouter()
+    {
+        return $this->_router;
+    }
 
+    public function setRouter($key, $value)
+    {
+        $this->_router[$key] = $value;
+        return $this->_router;
+    }
+
+    public function unsetRouter($key)
+    {
+        if(isset($this->_router[$key])) unset($this->_router[$key]);
+        return $this->_router;
+    }
 }
