@@ -51,7 +51,7 @@ class Sitemap extends \yii\base\Component
     public function renderSitemap(){
         // Lấy cấu hình sitemap
         
-        $model = new \app\modules\admin\models\Seo2();
+        $model = new \app\modules\admin\v1\models\Seo2();
         $seo = $model->getItem();
         
         //view($seo);
@@ -107,7 +107,7 @@ class Sitemap extends \yii\base\Component
 </url>';
             // lấy toàn bộ link web
             
-            $slugModel = (new \izi\models\Slug());
+            $slugModel = (new \app\models\Slugs());
             
             $l = $slugModel->getAllSitemapUrl();
             

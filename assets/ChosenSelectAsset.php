@@ -8,7 +8,8 @@ class ChosenSelectAsset extends \yii\web\AssetBundle
          
     public $sourcePath = '@bower/chosen';
     public $css = [
-        
+        'chosen.css',
+        'chosen-icon-gh-pages/chosenIcon/chosenIcon.css'
     ];
     
     public $js = [

@@ -7,27 +7,22 @@
 
 namespace izi\assets;
 
-use Yii;
  
-class StickyKitAsset extends \yii\web\AssetBundle
+class JqueryNestable extends \yii\web\AssetBundle
 {
-    //public $sourcePath = '@bower/sticky-kit';
+    // public $sourcePath = '@bower/ace/src-min-noconflict';
     
     
     public $css = [
-     
+        '//cdn.iziweb.net/jquery.nestable/jquery.nestable.css',
     ];
+    
+    
     public $js = [
-        '//cdn.iziweb.net/sticky-kit/sticky-kit.min.js'
+        '//cdn.iziweb.net/jquery.nestable/jquery.nestable.js',
     ];
-     
     
     public $depends = [        
-        'yii\web\JqueryAsset',
+        'izi\assets\BootstrapAsset',
     ];
-    
-    public function init()
-    {
-         
-    }
 }

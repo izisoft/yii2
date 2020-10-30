@@ -251,6 +251,9 @@ class Application extends \yii\web\Application
                 'class'=>'izi\rbac\DbManager'
             ],
             
+            'satellite'   =>  [
+                'class' =>  'izi\satellite\Satellite'
+            ],
             /**
              * Promotion
              */

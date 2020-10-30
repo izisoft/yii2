@@ -33,7 +33,7 @@ class Izi extends \yii\base\Component
       if($url == ""){
         return ABSOLUTE_DOMAIN;
       }
-        return \izi\models\Slug::getUrl($url);
+        return \app\models\Slugs::getUrl($url);
     }
 
     public function getSchemeJsonLD(){
@@ -931,8 +931,7 @@ class Izi extends \yii\base\Component
                                     $selected_acc[$sv['day_id']][$sv['time_id']]['name'] = '';
                                 }
                                 
-                                
-                                continue;
+                                break; 
                             }
                             
                             

@@ -387,6 +387,13 @@ class UrlManager extends \yii\web\UrlManager
         return $this->_slug;
     }
 
+
+    public function setSlug($slug)
+    {
+        $this->_slug = $slug;
+        return $this->_slug;
+    }
+
     /**
      * frontend request
      */

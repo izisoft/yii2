@@ -19,6 +19,7 @@ class BootstrapConfirmationAsset extends \yii\web\AssetBundle
       
     ];
     public $js = [
+        '//cdn.iziweb.net/bootstrap/assets/js/bootstrap-tooltip.js',
         'bootstrap-confirmation.js',
     ];
      
