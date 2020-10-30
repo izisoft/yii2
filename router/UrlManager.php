@@ -225,8 +225,6 @@ class UrlManager extends \yii\web\UrlManager
 
             if($s['module'] != "" && in_array($s['module'], $this->getModuleNames())){
                 $this->_router['module'] = $domain_module_name = $s['module'];
-                $domain_module = true;
-
             }
 
             $DOMAIN_HIDDEN = $s['is_hidden'];
@@ -249,7 +247,7 @@ class UrlManager extends \yii\web\UrlManager
         preg_match($pattern, trim(URL_PATH, DS), $m);
 
         if(!empty($m)){
-            $this->_router['module'] = $m[1];
+            $this->_router['module'] = $m[1];           
             if(isset($m[2])){
                 $router = explode(DS, trim($m[2], DS));
             }
@@ -284,6 +282,7 @@ class UrlManager extends \yii\web\UrlManager
             $this->addRules([
                 '/'=>$this->_router['module'] . "/default/index",
                 '<module:\w+>/<alias:login|logout|forgot>'=>'<module>/default/<alias>',
+                '/'.$this->_router['module'].'/<alias:login|logout|forgot>'=> $this->_router['module'] . '/default/<alias>',
             ]);
             // custom rule
 
@@ -321,7 +320,7 @@ class UrlManager extends \yii\web\UrlManager
             $this->setLanguage($this->_slug);
             // Setup template
             $this->setTemplate($this->_router);
-            
+
             if(method_exists($moduleClass, 'parseRequest')){
 
                 $moduleClass::parseRequest($request, $this);
