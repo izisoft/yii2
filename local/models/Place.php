@@ -9,11 +9,11 @@
 namespace izi\local\models;
 use Yii;
 
-class Place2 extends \izi\db\ActiveRecord
+class Place extends \izi\db\ActiveRecord
 {
 	
 	public static function tableName(){
-		return '{{%global_places}}';
+		return '{{%places}}';
 	}
 	  
 	

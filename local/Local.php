@@ -18,7 +18,7 @@ class Local extends \yii\base\Component
     private $_place;
     public function getPlace(){
         if($this->_place == null){
-            $this->_place = Yii::createObject('izi\web\Place');
+            $this->_place = Yii::createObject('izi\local\Place');
         }
         return $this->_place;
     }
@@ -81,7 +81,7 @@ class Local extends \yii\base\Component
     
     public function getLocation(){
         if($this->_location == null){
-            $this->_location = \app\modules\admin\models\Siteconfigs::getDefaultLocation();
+            $this->_location = \app\modules\admin\v1\models\Siteconfigs::getDefaultLocation();
         }
         return $this->_location;
     }
