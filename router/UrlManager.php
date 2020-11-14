@@ -783,6 +783,7 @@ class UrlManager extends \yii\web\UrlManager
             define ('MAIN_LAYOUT',  'main');
             define ('__HAS_MOBILE__',  false);
             define('__TEMP_NAME__', 'welcome');
+            define('__TCID__', 0);
         }
 
 
