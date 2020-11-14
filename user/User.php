@@ -449,7 +449,10 @@ class User extends \yii\web\User
 	
 	
 	
-	
+	public function resetPassword($user, $shop_id = 0)
+	{
+
+	}
 	
 	
 	
