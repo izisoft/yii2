@@ -94,6 +94,7 @@ class Translate extends \yii\base\Component
 		return $text;
 	}
 	public function translate($lang_code, $lang = __LANG__, $params = []){
+		
 	   
 	    $system_lang = isset($params['system_lang']) && $params['system_lang'] === true ? $params['system_lang'] : false;;
 	    
@@ -129,6 +130,8 @@ class Translate extends \yii\base\Component
 		$text = $lang_code; $t = [];
 		
 		//return $lang_code;
+
+		
 		
 		if(!(isset($this->t[$lang][$lang_code]) && $this->t[$lang][$lang_code] != "")){
 			$text = '';
@@ -251,7 +254,9 @@ class Translate extends \yii\base\Component
 				}
 				// 
 				
+				
 				if($default == $lang_code && !(isset($params['quick_translate']) && $params['quick_translate'] == false)){
+					
 				    return '<i class="quick-translate-text poiter hover-red '.($rand = randString(12)).'" title="Bấm để dịch nhanh" 
 data-lang="'.ADMIN_LANG.'"
 data-target=".'.$rand.'"

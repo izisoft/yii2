@@ -235,6 +235,10 @@ class UrlManager extends \yii\web\UrlManager
 
         //
         defined('DOMAIN_HIDDEN') or define('DOMAIN_HIDDEN', $DOMAIN_HIDDEN);
+
+        // old config
+        defined('DOMAIN_INVISIBLED') or define('DOMAIN_INVISIBLED', $DOMAIN_HIDDEN);
+        
         defined('__DOMAIN_MODULE__') or define('__DOMAIN_MODULE__', $domain_module);
         defined('__DOMAIN_MODULE_NAME__') or define('__DOMAIN_MODULE_NAME__', $domain_module_name);
 
