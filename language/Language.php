@@ -38,8 +38,7 @@ class Language extends \yii\base\Component
 	
 	public function getItem($code, $fetchArray = false){
 		$l = SiteConfigs::getConfigs($this->identity, null, __SID__);
- 
-		
+ 		
         if(!empty($l)){
             foreach ($l as $v){
                  

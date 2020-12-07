@@ -79,7 +79,7 @@ class SiteConfigs extends \izi\db\ActiveRecord
             __METHOD__,
             $code,
             $lang,
-            
+            $sid
         ];
         
         if($cached && !empty($cache = Yii::$app->icache->getCache($params))){
@@ -100,9 +100,13 @@ class SiteConfigs extends \izi\db\ActiveRecord
             $conditions["lang"] = $lang;
         }
         
-        $item = static::find()->select(['bizrule'])->where($conditions)->asArray()->one();
+        $item = static::find()->select(['bizrule'])->where($conditions)->asArray()->one();        
         
-        return self::populateData($item);
+        $cache = self::populateData($item);
+
+        Yii::$app->icache->store($cache, $params);
+
+        return $cache;
         
         if(!empty($item)) {
             

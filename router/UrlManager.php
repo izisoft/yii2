@@ -177,7 +177,7 @@ class UrlManager extends \yii\web\UrlManager
         }else{
 
 
-            $d = \izi\models\DomainPointer::findOne(['domain' => $domain]);
+            $d = \izi\models\DomainPointer::findOne(['domain' => $domain]); 
 
             if(!empty($d)){
 
@@ -256,8 +256,9 @@ class UrlManager extends \yii\web\UrlManager
                 $router = explode(DS, trim($m[2], DS));
             }
         }else{
+            if(URL_PATH != '/')
             $router = explode(DS, trim(URL_PATH, DS));
-        }     
+        } 
 
         if(!empty($router)){
 
@@ -424,6 +425,8 @@ class UrlManager extends \yii\web\UrlManager
         $detail_url = '';
 
         $isDetail = false;
+ 
+
         if(!empty($this->_router)){
             foreach ($this->_router as $k=>$v) {
 
