@@ -662,7 +662,13 @@ class Config extends \yii\base\Component
     }
     
     
-    
+    private $_setting;
+    public function getSetting(){
+        if($this->_setting === null){
+            $this->_setting = \izi\models\SiteConfigs::getConfigs('SETTINGS', null);
+        }
+        return $this->_setting;
+    }
     
     public function getEmailRespon($params)
     {
