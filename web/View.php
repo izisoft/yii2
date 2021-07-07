@@ -860,7 +860,8 @@ class View extends \yii\base\View
 	
     
     public function renderPartialTemplate($partial, $renderDefault = false){
-		
+		return $this->renderPartial(strtolower($partial));
+        return;
 		/**
 		Lấy nội dung từ cache (lưu trong session)
 		*/

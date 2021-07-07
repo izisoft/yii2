@@ -24,14 +24,14 @@ use Yii;
  * @property GuideLanguage $guideLanguage
  * @property GuideLanguage[] $guideLanguages
  */
-class AdLanguages extends \yii\db\ActiveRecord
+class Languages extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'ad_languages';
+        return 'languages';
     }
 
     /**
