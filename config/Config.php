@@ -9,6 +9,8 @@ class Config extends \yii\base\Component
 {
     public $config_key = 'SITE_CONFIGS';
     
+    private $_cache = [];
+
     public $view;
     /**
      * Global config for all module
@@ -106,6 +108,7 @@ class Config extends \yii\base\Component
     }
     
     private function getRedirectUrl($slug){
+        return ['validate'=>false];
         // check redirect domain
         
         // redirect all link to new domain
@@ -185,8 +188,8 @@ class Config extends \yii\base\Component
             
             
             $r = \izi\db\ActiveRecord::populateData((new \yii\db\Query())
-                ->select(['target', 'rule', 'code', 'bizrule'])
-                ->from($table)->where(['rule'=>[$rule, URL_WITH_PATH],'is_active'=>1,'state'=>1,'sid'=>__SID__])->one());
+                ->select(['target', 'rule', 'code'])
+                ->from($table)->where(['rule'=>[$rule, URL_WITH_PATH],'is_active'=>1,'sid'=>__SID__])->one());
             
 //             view($r);exit;
             
@@ -354,12 +357,33 @@ class Config extends \yii\base\Component
         return $this->_app;
     }
 	
+    public function getConfig($param)
+    {
+        $_key = md5(json_encode($param));
+        if(!isset($this->_cache[$_key])){
+
+            // $code = null, $lang = __LANG__,$sid=__SID__,$cached=true, $required = false
+            $code = isset($param[0]) ? $param[0] : null;
+            $lang = isset($param[1]) ? $param[1] : __LANG__;
+            $sid = isset($param[2]) ? $param[2] : __SID__;
+            $cached = isset($param[3]) ? $param[3] : true;
+            $required = isset($param[4]) ? $param[4] : false;
+
+            $this->_cache[$_key] = \izi\models\SiteConfigs::getConfigs($code, $lang, $sid, $cached, $required);
+        }
+        return $this->_cache[$_key];
+    }
+    
+
     public function setupAppConfig()
     {
-        $cfg = \izi\models\SiteConfigs::getConfigs($this->config_key);
+ 
         
+        $cfg = $this->getConfig([$this->config_key]);
+
         if(empty($cfg)){
-            $cfg = \izi\models\SiteConfigs::getConfigs($this->config_key, null);
+            // $cfg = \izi\models\SiteConfigs::getConfigs($this->config_key, null);
+            //$cfg = $this->getConfig([$this->config_key, null]);
         }
          
         

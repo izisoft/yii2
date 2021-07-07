@@ -330,7 +330,7 @@ class UrlModel extends \izi\models\Slugs
             $item = $query
             ->where(
                 [
-                    'b.state'=>__TEMPLATE_DOMAIN_STATUS__,
+                    'b.status'=>__TEMPLATE_DOMAIN_STATUS__,
                     'b.sid'=>__SID__,
                     'b.lang'=>__LANG__,
                 ])
@@ -345,7 +345,7 @@ class UrlModel extends \izi\models\Slugs
                     $item = $query
                     ->where(
                         [
-                            'b.state'=>__TEMPLATE_DOMAIN_STATUS__,
+                            'b.status'=>__TEMPLATE_DOMAIN_STATUS__,
                             'b.sid'=>__SID__
                         ])
                         ->asArray()
@@ -361,7 +361,7 @@ class UrlModel extends \izi\models\Slugs
                             $item = $query
                             ->where(
                                 [
-                                    'b.state'=>1,
+                                    'b.status'=>1,
                                     'b.sid'=>__SID__,
                                     'b.lang'=>__LANG__,
                                 ])
@@ -373,7 +373,7 @@ class UrlModel extends \izi\models\Slugs
                                     $item = $query
                                     ->where(
                                         [
-                                            'b.state'=>1,
+                                            'b.status'=>1,
                                             'b.sid'=>__SID__,
                                         ])
                                         ->asArray()

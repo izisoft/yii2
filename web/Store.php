@@ -58,6 +58,15 @@ class Store extends \yii\base\Component
 
     public function getDefaultStore()
     {
+        $params = [
+            __METHOD__,
+            __SID__
+        ];
+        
+        if(!YII_DEBUG && !empty($cache = Yii::$app->icache->getCache($params))){
+            return $cache;
+        }
+
         $query = (new \yii\db\Query())
         ->from(['a' => StoreWebsite::tableName()])
         ->innerJoin(['b' => StoreGroup::tableName()], 'a.website_id=b.website_id')
@@ -76,7 +85,11 @@ class Store extends \yii\base\Component
             
         ])
         ;
-        return $query->one();
+        $cache = $query->one();
+
+        Yii::$app->icache->store($cache, $params);
+            
+        return $cache;
     }
     
     private $_defaultWebsiteId;

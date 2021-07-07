@@ -175,9 +175,9 @@ class UrlManager extends \yii\web\UrlManager
         if(!YII_DEBUG && !empty($config)){
             return $config;
         }else{
+ 
 
-
-            $d = \izi\models\DomainPointer::findOne(['domain' => $domain]);
+            $d = \izi\models\DomainPointer::find()->where(['domain' => $domain])->one();
 
             if(!empty($d)){
 
@@ -199,6 +199,8 @@ class UrlManager extends \yii\web\UrlManager
 
                     return $config;
                 }
+            }else{
+                 
             }
 
         }
@@ -213,6 +215,8 @@ class UrlManager extends \yii\web\UrlManager
     {
         // Parse domain
         $s = $this->parseDomain();
+
+         
 
         $DOMAIN_HIDDEN =  $domain_module = false; $domain_module_name = '';
         if(!empty($s)){
@@ -423,6 +427,9 @@ class UrlManager extends \yii\web\UrlManager
         if(!empty($this->_router)){
             foreach ($this->_router as $k=>$v) {
 
+                if($v == ""){
+                    break;
+                }
                 $detail_url = $v;
 
                 if($is_validate_url) break;
@@ -434,10 +441,10 @@ class UrlManager extends \yii\web\UrlManager
                         $this->_slug = \izi\models\Slugs::find()->where(['sid' => __SID__, 'url' => $v])->asArray()->one();
 
                         if(empty($this->_slug)){
-                            $lang = \izi\models\AdLanguages::find()->where(['or', ['code' => $v], ['hl' => $v]])->one();
+                            $lang = \izi\models\Languages::find()->where(['or', ['code' => $v], ['hl' => $v]])->one();
 
                             if(!empty($lang)){
-                                $this->_slug['route'] = 'index';
+                                $this->_slug['item_type'] = 'index';
                                 $this->_slug['url'] = $v;
                                 $this->_slug['item_id'] = 0;
                                 $this->_slug['item_type'] = 100;
@@ -447,9 +454,9 @@ class UrlManager extends \yii\web\UrlManager
 
                         if(!empty($this->_slug)){
 
-                            $this->_router['controller'] = $this->_slug['route'];
+                            $this->_router['controller'] = $this->_slug['item_type'];
                             defined('__DETAIL_URL__') or define('__DETAIL_URL__', $this->_slug['url']);
-                            defined('__CONTROLLER__') or define('__CONTROLLER__', $this->_slug['route']);
+                            defined('__CONTROLLER__') or define('__CONTROLLER__', $this->_slug['item_type']);
                             define('__ITEM_ID__', $this->_slug['item_id']);
                             define('__ITEM_TYPE__', $this->_slug['item_type']);
 
@@ -460,7 +467,7 @@ class UrlManager extends \yii\web\UrlManager
                                     /**
                                      *
                                      */
-                                    if($category['route'] == 'manual'){
+                                    if($category['item_type'] == 'manual'){
                                         $this->_router['action'] = trim($category['link_target'],'/');
                                     }
                                     //
@@ -717,7 +724,7 @@ class UrlManager extends \yii\web\UrlManager
             }else{
                 $lang = Yii::$app->l->getDefault();
             }
-
+ 
             if(!empty($lang)){
                 $language = $lang['code'];
             }else{
