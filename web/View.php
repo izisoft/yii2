@@ -751,10 +751,7 @@ class View extends \yii\base\View
     
     public function getConfig()
     {
-        if($this->_config == null){
-            
-            //view(\app\models\SiteConfigs::getConfigs('SITE_CONFIGS', __LANG__ , __SID__, true, true), 'Confi');
-            
+        if($this->_config == null){            
             $this->_config = (object)\app\models\SiteConfigs::getConfigs('SITE_CONFIGS', __LANG__ , __SID__, true, true);
         }
         return $this->_config;
@@ -764,6 +761,8 @@ class View extends \yii\base\View
     public function setSiteConfig($key, $value){
         
         $keys = explode('|', $key);
+
+        $cfg = $this->getConfig();
         
         switch (count($keys)){
             case 0:
@@ -771,14 +770,14 @@ class View extends \yii\base\View
                 break;
             case 1:
                 
-                $this->getConfig()->{$keys[0]} = $value;
+                $cfg[$keys[0]] = $value;
                 
                 break;
             case 2:
-                if(isset($this->getConfig()->{$keys[0]}{$keys[1]}) && is_array($this->getConfig()->{$keys[0]}{$keys[1]})){
-                    $this->getConfig()->{$keys[0]}{$keys[1]} = $value;
+                if(isset($cfg[$keys[0]][$keys[1]]) && is_array($cfg[$keys[0]][$keys[1]])){
+                    $cfg[$keys[0]][$keys[1]] = $value;
                 }else{
-                    $this->getConfig()->{$keys[0]}->{$keys[1]} = $value;
+                    $cfg[$keys[0]][$keys[1]] = $value;
                 }
                 break;
                 

@@ -764,6 +764,8 @@ class UrlManager extends \yii\web\UrlManager
 
         $temp = $this->getModel()->getTemplate();
 
+        view($temp);
+
         if(!empty($temp)){
 
             define('__TEMP_NAME__', ($temp['code'] != "" ? $temp['code'] : 'welcome'));
@@ -772,7 +774,7 @@ class UrlManager extends \yii\web\UrlManager
 
             define('__TEMP_ID__', !empty($temp) ? $temp['id'] : 0);
 
-            define('__HAS_MOBILE__', !empty($temp) && $temp['is_mobile'] == 1 ? true : false);
+            //define('__HAS_MOBILE__', !empty($temp) && $temp['is_mobile'] == 1 ? true : false);
 
             define('__TCID__', !empty($temp) ? $temp['parent_id'] : 0);
 
@@ -826,13 +828,13 @@ class UrlManager extends \yii\web\UrlManager
 
                 $basePath = '@app/themes/' . __TEMP_NAME__ . '/assets';
 
-                if(__HAS_MOBILE__ && $device == 'mobile'){
+                // if(__HAS_MOBILE__ && $device == 'mobile'){
 
-                    $appViews .= "/$device";
-                    $basePath = '@app/themes/' . __TEMP_NAME__ . "/$device" . '/assets';
-                    $baseUrl .= "/$device";
+                //     $appViews .= "/$device";
+                //     $basePath = '@app/themes/' . __TEMP_NAME__ . "/$device" . '/assets';
+                //     $baseUrl .= "/$device";
 
-                }
+                // }
 
                 /**
                  * Set theme
