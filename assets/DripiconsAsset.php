@@ -10,7 +10,7 @@ namespace izi\assets;
  
 class DripiconsAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/dripicons';
+    public $sourcePath = '@vendor/bower-assets/dripicons';
     
     
     public $css = [

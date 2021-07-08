@@ -11,7 +11,7 @@ use Yii;
  
 class DropifyAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/dropify/dist';
+    public $sourcePath = '@vendor/bower-assets/dropify/dist';
     
     
     public $css = [

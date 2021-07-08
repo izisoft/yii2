@@ -11,7 +11,7 @@ use Yii;
  
 class WaypointAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/waypoint';
+    public $sourcePath = '@vendor/bower-assets/waypoint';
     
     
     public $css = [

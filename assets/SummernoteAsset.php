@@ -11,7 +11,7 @@ use Yii;
  
 class SummernoteAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/summernote';
+    public $sourcePath = '@vendor/bower-assets/summernote';
     
     
     public $css = [

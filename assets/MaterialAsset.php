@@ -15,7 +15,7 @@ namespace izi\assets;
  */
 class MaterialAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/material-design';
+    public $sourcePath = '@vendor/bower-assets/material-design';
     public $css = [
         'css/materialdesignicons.min.css',
     ];

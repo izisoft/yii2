@@ -10,7 +10,7 @@ namespace izi\assets;
  
 class FixedheaderAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/tablefixedheader';
+    public $sourcePath = '@vendor/bower-assets/tablefixedheader';
     
     
     public $css = [

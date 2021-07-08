@@ -11,7 +11,7 @@ use Yii;
  
 class DaterangepickerAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/daterangepicker';
+    public $sourcePath = '@vendor/bower-assets/daterangepicker';
     
     
     public $css = [

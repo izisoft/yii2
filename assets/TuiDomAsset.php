@@ -15,7 +15,7 @@ namespace izi\assets;
  */
 class TuiDomAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/toast-ui/tui-dom/dist';
+    public $sourcePath = '@vendor/bower-assets/toast-ui/tui-dom/dist';
     public $css = [        
     ];
     

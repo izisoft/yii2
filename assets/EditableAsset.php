@@ -11,7 +11,7 @@ use Yii;
  
 class EditableAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/datatables';
+    public $sourcePath = '@vendor/bower-assets/datatables';
     
     
     public $css = [

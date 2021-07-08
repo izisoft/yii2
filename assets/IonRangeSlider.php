@@ -11,7 +11,7 @@ use Yii;
  
 class IonRangeSlider extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/ion.rangeSlider';
+    public $sourcePath = '@vendor/bower-assets/ion.rangeSlider';
     
     
     public $css = [

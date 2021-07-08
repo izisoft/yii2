@@ -11,7 +11,7 @@ use Yii;
  
 class InputmaskAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/inputmask/dist';
+    public $sourcePath = '@vendor/bower-assets/inputmask/dist';
     
     
     public $css = [

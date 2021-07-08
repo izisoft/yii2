@@ -15,7 +15,7 @@ namespace izi\assets;
  */
 class CounterupAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/counterup';
+    public $sourcePath = '@vendor/bower-assets/counterup';
     public $js = [
         'jquery.counterup.min.js',
     ];

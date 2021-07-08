@@ -11,7 +11,7 @@ use Yii;
  
 class BootstrapDatePaginatorAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/bootstrap-datepaginator/dist';
+    public $sourcePath = '@vendor/bower-assets/bootstrap-datepaginator/dist';
     
     
     public $css = [

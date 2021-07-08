@@ -11,7 +11,7 @@ use Yii;
  
 class BootstrapDatepickerAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/bootstrap-datepicker';
+    public $sourcePath = '@vendor/bower-assets/bootstrap-datepicker';
     
     
     public $css = [

@@ -11,7 +11,7 @@ use Yii;
  
 class SwitcheryAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/switchery';
+    public $sourcePath = '@vendor/bower-assets/switchery';
     
     
     public $css = [

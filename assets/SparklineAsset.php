@@ -11,7 +11,7 @@ use Yii;
  
 class SparklineAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/sparkline';
+    public $sourcePath = '@vendor/bower-assets/sparkline';
     
     
     public $css = [

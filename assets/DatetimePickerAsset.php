@@ -15,7 +15,7 @@ namespace izi\assets;
  */
 class DatetimePickerAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/ui-datetimepicker';
+    public $sourcePath = '@vendor/bower-assets/ui-datetimepicker';
     public $css = [
         'jquery.datetimepicker.css',
     ];

@@ -12,7 +12,7 @@ use Yii;
 class IonRangesliderAsset extends \yii\web\AssetBundle
 {
     
-    public $sourcePath = '@bower/ion-rangeslider';
+    public $sourcePath = '@vendor/bower-assets/ion-rangeslider';
     
     
     public $css = [

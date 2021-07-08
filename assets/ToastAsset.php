@@ -11,7 +11,7 @@ use Yii;
  
 class ToastAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/jquery-toast-plugin/dist';
+    public $sourcePath = '@vendor/bower-assets/jquery-toast-plugin/dist';
     
     
     public $css = [

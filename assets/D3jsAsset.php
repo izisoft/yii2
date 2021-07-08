@@ -11,7 +11,7 @@ use Yii;
  
 class D3jsAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/chartist/dist';
+    public $sourcePath = '@vendor/bower-assets/chartist/dist';
     
     
     public $css = [

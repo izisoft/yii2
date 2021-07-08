@@ -10,7 +10,7 @@ namespace izi\assets;
 
 class FontAwesomeProAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/fontawesome-pro-5.6.3-web';
+    public $sourcePath = '@vendor/bower-assets/fontawesome-pro-5.6.3-web';
     
     public $css = [
         'css/all.min.css'

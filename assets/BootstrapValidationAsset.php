@@ -11,7 +11,7 @@ use Yii;
  
 class BootstrapValidationAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/jqBootstrapValidation/dist';
+    public $sourcePath = '@vendor/bower-assets/jqBootstrapValidation/dist';
     
     
     public $css = [

@@ -15,7 +15,7 @@ namespace izi\assets;
  */
 class TagsInputAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/tagsinput/dist';
+    public $sourcePath = '@vendor/bower-assets/tagsinput/dist';
     
     public $js = [
         'bootstrap-tagsinput.min.js',

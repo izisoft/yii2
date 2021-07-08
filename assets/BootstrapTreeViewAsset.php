@@ -11,7 +11,7 @@ use Yii;
  
 class BootstrapTreeViewAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/bootstrap-treeview/dist';
+    public $sourcePath = '@vendor/bower-assets/bootstrap-treeview/dist';
     
     
     public $css = [

@@ -16,7 +16,7 @@ namespace izi\assets;
 class FontAwesome4Asset extends \yii\web\AssetBundle
 {
     
-    public $sourcePath = '@bower/font-awesome-v4';
+    public $sourcePath = '@vendor/bower-assets/font-awesome-v4';
     
     public $css = [
         'css/font-awesome.min.css',

@@ -10,7 +10,7 @@ namespace izi\assets;
  
 class SlickAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/slick';
+    public $sourcePath = '@vendor/bower-assets/slick';
     
     
     public $css = [

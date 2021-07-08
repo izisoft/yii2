@@ -10,7 +10,7 @@ namespace izi\assets;
  
 class AceAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/ace/src-min-noconflict';
+    public $sourcePath = '@vendor/bower-assets/ace/src-min-noconflict';
     
     
     public $css = [

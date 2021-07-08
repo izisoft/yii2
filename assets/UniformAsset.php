@@ -18,7 +18,7 @@ use Yii;
  */
 class UniformAsset extends AssetBundle
 {
-    public $sourcePath = '@bower/uniform/3.0';
+    public $sourcePath = '@vendor/bower-assets/uniform/3.0';
     public $css = [
         'css/default.css',
     ];

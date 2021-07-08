@@ -6,7 +6,7 @@ use yii\web\AssetBundle;
 
 class FastclickAsset extends AssetBundle
 {
-    public $sourcePath = '@bower/fastclick';
+    public $sourcePath = '@vendor/bower-assets/fastclick';
     
     public $js = [
         'lib/fastclick.js',

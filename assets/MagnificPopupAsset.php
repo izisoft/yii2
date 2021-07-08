@@ -11,7 +11,7 @@ use Yii;
  
 class MagnificPopupAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/magnific-popup/dist';
+    public $sourcePath = '@vendor/bower-assets/magnific-popup/dist';
     
     
     public $css = [

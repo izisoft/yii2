@@ -15,7 +15,7 @@ namespace izi\assets;
  */
 class JqueryCookieAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/jquerycookie';
+    public $sourcePath = '@vendor/bower-assets/jquerycookie';
     public $js = [
         'jquery.cookie.js',
     ];

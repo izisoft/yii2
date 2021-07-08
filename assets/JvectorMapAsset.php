@@ -15,7 +15,7 @@ namespace izi\assets;
  */
 class JvectorMapAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/jvectormap';
+    public $sourcePath = '@vendor/bower-assets/jvectormap';
     
     public $css = [
         'jquery-jvectormap-2.0.3.css'

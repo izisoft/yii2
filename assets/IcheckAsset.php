@@ -11,7 +11,7 @@ use Yii;
  
 class IcheckAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/icheck';
+    public $sourcePath = '@vendor/bower-assets/icheck';
     
     
     public $css = [

@@ -11,7 +11,7 @@ use Yii;
  
 class WavesAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/waves/dist';
+    public $sourcePath = '@vendor/bower-assets/waves/dist';
     
     
     public $css = [

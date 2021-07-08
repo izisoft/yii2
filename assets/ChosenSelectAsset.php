@@ -6,7 +6,7 @@ use Yii;
 class ChosenSelectAsset extends \yii\web\AssetBundle
 {
          
-    public $sourcePath = '@bower/chosen';
+    public $sourcePath = '@vendor/bower-assets/chosen';
     public $css = [
         'chosen.css',
         'chosen-icon-gh-pages/chosenIcon/chosenIcon.css'

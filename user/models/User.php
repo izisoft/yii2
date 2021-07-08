@@ -87,7 +87,9 @@ class User extends ActiveRecord implements IdentityInterface
         }else{
             $u->where(['username' => $username]);
         }
-        return $u->andWhere(['status' => self::STATUS_ACTIVE]+($username === ROOT_USER ? [] : ['sid'=>__SID__]))->one();
+
+        $u->andWhere(['status' => self::STATUS_ACTIVE]+($username === ROOT_USER ? [] : ['sid'=>__SID__]));
+        return $u->one();
     }
     
     /**

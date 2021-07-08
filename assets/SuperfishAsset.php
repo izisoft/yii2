@@ -11,7 +11,7 @@ use Yii;
  
 class SuperfishAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/superfish';
+    public $sourcePath = '@vendor/bower-assets/superfish';
     
     
     public $css = [

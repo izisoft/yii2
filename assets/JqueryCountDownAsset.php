@@ -11,7 +11,7 @@ use Yii;
  
 class JqueryCountDownAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/jquery.countdown-2.2.0';
+    public $sourcePath = '@vendor/bower-assets/jquery.countdown-2.2.0';
     
     
     public $css = [

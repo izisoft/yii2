@@ -11,7 +11,7 @@ use Yii;
  
 class MomentAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/moment';
+    public $sourcePath = '@vendor/bower-assets/moment';
     
     
      

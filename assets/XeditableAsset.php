@@ -11,7 +11,7 @@ use Yii;
  
 class XeditableAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/x-editable';
+    public $sourcePath = '@vendor/bower-assets/x-editable';
     
     
     public $css = [

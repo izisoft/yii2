@@ -11,7 +11,7 @@ use Yii;
  
 class TinymceAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/tinymce';
+    public $sourcePath = '@vendor/bower-assets/tinymce';
     
     
     public $css = [

@@ -10,7 +10,7 @@ namespace izi\assets;
  
 class JssorAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/jssor';
+    public $sourcePath = '@vendor/bower-assets/jssor';
     
     
     public $css = [

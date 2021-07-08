@@ -16,7 +16,7 @@ namespace izi\assets;
 class LessAsset extends \yii\web\AssetBundle
 {
     
-    public $sourcePath = '@bower/lessjs';
+    public $sourcePath = '@vendor/bower-assets/lessjs';
     
     
     public $js = [

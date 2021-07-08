@@ -11,7 +11,7 @@ use Yii;
  
 class DropzoneAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/dropzone';
+    public $sourcePath = '@vendor/bower-assets/dropzone';
     
     
     public $css = [

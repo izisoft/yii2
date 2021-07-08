@@ -11,7 +11,7 @@ use yii\web\AssetBundle;
 
 class Bootstrap4JsAsset extends AssetBundle
 {
-    public $sourcePath = '@bower/bootstrap4/dist';
+    public $sourcePath = '@vendor/bower-assets/bootstrap4/dist';
     
     public $js = [
 //         'js/popper.min.js',

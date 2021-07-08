@@ -11,7 +11,7 @@ use Yii;
  
 class JqueryUiAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/jquery-ui/jquery-ui-1.12.1.custom';
+    public $sourcePath = '@vendor/bower-assets/jquery-ui/jquery-ui-1.12.1.custom';
     
     
     public $css = [

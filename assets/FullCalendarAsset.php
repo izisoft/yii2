@@ -11,7 +11,7 @@ use Yii;
  
 class FullCalendarAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/fullcalendar';
+    public $sourcePath = '@vendor/bower-assets/fullcalendar';
     
     
     public $css = [

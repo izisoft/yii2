@@ -15,7 +15,7 @@ namespace izi\assets;
  */
 class SwiperAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/swiper/dist';
+    public $sourcePath = '@vendor/bower-assets/swiper/dist';
     
     public $js = [
         //'http://idangero.us/swiper/js/vendor/jquery-1.11.0.min.js',

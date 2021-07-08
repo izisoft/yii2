@@ -11,7 +11,7 @@ use Yii;
  
 class TableExportAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/table-export/dist';
+    public $sourcePath = '@vendor/bower-assets/table-export/dist';
     
     
     public $css = [

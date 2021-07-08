@@ -11,7 +11,7 @@ use Yii;
  
 class BootstrapWizardAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/twitter-bootstrap-wizard';
+    public $sourcePath = '@vendor/bower-assets/twitter-bootstrap-wizard';
     
     
     public $css = [

@@ -11,7 +11,7 @@ use Yii;
  
 class JsGridAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/jsgrid';
+    public $sourcePath = '@vendor/bower-assets/jsgrid';
     
     
     public $css = [

@@ -10,7 +10,7 @@ namespace izi\assets;
  
 class FontelloAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/fontello';
+    public $sourcePath = '@vendor/bower-assets/fontello';
     
     
     public $css = [

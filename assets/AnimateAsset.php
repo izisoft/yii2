@@ -15,7 +15,7 @@ namespace izi\assets;
  */
 class AnimateAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/animate.css';
+    public $sourcePath = '@vendor/bower-assets/animate.css';
     public $css = [
         'animate.min.css',
     ];

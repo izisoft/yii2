@@ -10,7 +10,7 @@ namespace izi\assets;
 
 class LabelinplaceAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/labelinplace';
+    public $sourcePath = '@vendor/bower-assets/labelinplace';
     
     
     public $css = [

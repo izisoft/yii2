@@ -11,7 +11,7 @@ use Yii;
  
 class FootableBootstrapAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/footable-bootstrap';
+    public $sourcePath = '@vendor/bower-assets/footable-bootstrap';
     
     
     public $css = [

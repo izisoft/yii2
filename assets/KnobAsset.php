@@ -11,7 +11,7 @@ use Yii;
  
 class KnobAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/knob';
+    public $sourcePath = '@vendor/bower-assets/knob';
     
     
  

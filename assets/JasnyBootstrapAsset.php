@@ -11,7 +11,7 @@ use Yii;
  
 class JasnyBootstrapAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/jasny-bootstrap';
+    public $sourcePath = '@vendor/bower-assets/jasny-bootstrap';
  
     public $js = [
         'jasny-bootstrap.js'

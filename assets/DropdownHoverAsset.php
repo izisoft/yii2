@@ -15,7 +15,7 @@ namespace izi\assets;
  */
 class DropdownHoverAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/dropdownhover';
+    public $sourcePath = '@vendor/bower-assets/dropdownhover';
     public $css = [
         'bootstrap-dropdownhover.min.css',
     ];

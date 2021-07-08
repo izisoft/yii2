@@ -15,7 +15,7 @@ namespace izi\assets;
  */
 class ApexchartsAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/apexcharts.js-3.22.1/dist';
+    public $sourcePath = '@vendor/bower-assets/apexcharts.js-3.22.1/dist';
     public $js = [
         'apexcharts.min.js',
     ];

@@ -11,7 +11,7 @@ use Yii;
  
 class TablesawAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/tablesaw/dist';
+    public $sourcePath = '@vendor/bower-assets/tablesaw/dist';
     
     
     public $css = [

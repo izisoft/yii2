@@ -15,7 +15,7 @@ namespace izi\assets;
  */
 class DatatablesAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/datatables';
+    public $sourcePath = '@vendor/bower-assets/datatables';
     public $css = [
         'https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css',
 //         'datatables-bs4/css/dataTables.bootstrap4.min.css',

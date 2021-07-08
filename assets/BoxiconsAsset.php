@@ -15,7 +15,7 @@ namespace izi\assets;
  */
 class BoxiconsAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/boxicons-2.0.7';
+    public $sourcePath = '@vendor/bower-assets/boxicons-2.0.7';
     public $css = [
         'css/boxicons.min.css',
     ];

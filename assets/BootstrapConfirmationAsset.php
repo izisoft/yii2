@@ -11,7 +11,7 @@ use Yii;
  
 class BootstrapConfirmationAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/bootstrap-confirmation';
+    public $sourcePath = '@vendor/bower-assets/bootstrap-confirmation';
     
     
     public $css = [

@@ -15,7 +15,7 @@ namespace izi\assets;
  */
 class TuiCodeSnippetAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/toast-ui/tui-code-snippet/dist';
+    public $sourcePath = '@vendor/bower-assets/toast-ui/tui-code-snippet/dist';
     public $css = [        
     ];
     

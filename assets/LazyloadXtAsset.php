@@ -10,7 +10,7 @@ namespace izi\assets;
  
 class LazyloadXtAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/lazyloadxt';
+    public $sourcePath = '@vendor/bower-assets/lazyloadxt';
     
     
     

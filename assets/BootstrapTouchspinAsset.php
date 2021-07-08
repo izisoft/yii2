@@ -11,7 +11,7 @@ use Yii;
  
 class BootstrapTouchspinAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/bootstrap-touchspin';
+    public $sourcePath = '@vendor/bower-assets/bootstrap-touchspin';
     
     
     public $css = [

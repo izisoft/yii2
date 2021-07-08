@@ -11,7 +11,7 @@ use Yii;
  
 class EchartsAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/echarts';
+    public $sourcePath = '@vendor/bower-assets/echarts';
     
     
     public $css = [

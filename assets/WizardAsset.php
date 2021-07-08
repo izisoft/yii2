@@ -11,7 +11,7 @@ use Yii;
  
 class WizardAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/wizard';
+    public $sourcePath = '@vendor/bower-assets/wizard';
     
     
     public $css = [

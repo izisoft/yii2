@@ -11,7 +11,7 @@ use Yii;
  
 class SlimscrollAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/slimscroll';
+    public $sourcePath = '@vendor/bower-assets/slimscroll';
     
     
     public $css = [
