@@ -764,8 +764,6 @@ class UrlManager extends \yii\web\UrlManager
 
         $temp = $this->getModel()->getTemplate();
 
-        view($temp);
-
         if(!empty($temp)){
 
             define('__TEMP_NAME__', ($temp['code'] != "" ? $temp['code'] : 'welcome'));
