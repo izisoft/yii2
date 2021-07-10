@@ -11,7 +11,7 @@ use Yii;
  
 class Select2Asset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/select2';
+    public $sourcePath = '@vendor/bower-assets/select2';
     
     
     public $css = [
