@@ -362,11 +362,21 @@ class Config extends \yii\base\Component
         $_key = md5(json_encode($param));
         if(!isset($this->_cache[$_key])){
 
-            // $code = null, $lang = __LANG__,$sid=__SID__,$cached=true, $required = false
+            foreach($param as $key => $value){
+                if(!is_numeric($key)){
+                    $$key = $value;
+                }
+            }
+
+            if(!isset($code))
             $code = isset($param[0]) ? $param[0] : null;
+            if(!isset($lang))
             $lang = isset($param[1]) ? $param[1] : __LANG__;
+            if(!isset($sid))
             $sid = isset($param[2]) ? $param[2] : __SID__;
+            if(!isset($cached))
             $cached = isset($param[3]) ? $param[3] : true;
+            if(!isset($required))
             $required = isset($param[4]) ? $param[4] : false;
 
             $this->_cache[$_key] = \izi\models\SiteConfigs::getConfigs($code, $lang, $sid, $cached, $required);

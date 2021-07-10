@@ -406,7 +406,7 @@ class UrlManager extends \yii\web\UrlManager
 
         $is_validate_url = false;
 
-        $fp = dirname(Yii::$app->view->theme->getPath('')) . DIRECTORY_SEPARATOR . '/rule.custom.php';
+        $fp = dirname(Yii::$app->view->theme->getPath('')) . DIRECTORY_SEPARATOR . 'rule.custom.php';
 
         if(file_exists($fp)){
 

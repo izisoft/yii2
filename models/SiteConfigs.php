@@ -1,5 +1,4 @@
 <?php
-
 namespace izi\models;
 
 use Yii;
@@ -69,11 +68,9 @@ class SiteConfigs extends \izi\db\ActiveRecord
     
     ///////
     public static function getConfigs($code = null, $lang = __LANG__,$sid=__SID__,$cached=true, $required = false){
-        
-        
-        
+                        
         $langx = $lang == null ? 'all' : $lang;
-        $code = $code !== null ? strtoupper($code) : 'SITE_CONFIGS';
+        $code = $code !== null ? strtoupper($code) : 'SITE_CONFIGS'; 
         
         $params = [
             __METHOD__,
@@ -88,8 +85,7 @@ class SiteConfigs extends \izi\db\ActiveRecord
                 
         if(!empty($cache)){
             return $cache;
-        }
-        
+        }        
         
         $conditions = [
             "code"=>$code
@@ -137,29 +133,22 @@ class SiteConfigs extends \izi\db\ActiveRecord
         
         $new_db = isset($config->json_data);
         
-        foreach ($conditions as $key=>$value) {
-            //             $con[$key] = $value;
+        foreach ($conditions as $key=>$value) {            
             $config->{$key}= $value;
         }
         
         if(is_array($data)){
-            $config->json_data = $config->json_data = json_encode($data, JSON_UNESCAPED_UNICODE);
-        }
+            $config->json_data = json_encode($data, JSON_UNESCAPED_UNICODE);
+        }                
         
-        
-        
-        if(!empty($item)){
-            
+        if(!empty($item)){            
             if(!empty($data)){
                 foreach ($data as $key=>$value){
                     $item[$key] = $value;
                 }
-            }
-            
-            $config->json_data = json_encode($item, JSON_UNESCAPED_UNICODE);
-            
-        }
-        
+            }            
+            $config->json_data = json_encode($item, JSON_UNESCAPED_UNICODE);            
+        }        
         
         if($new_db){
             return $config->save();
@@ -175,9 +164,7 @@ class SiteConfigs extends \izi\db\ActiveRecord
         
         return Yii::$app->db->createCommand()->update(SiteConfigs::tableName(), [
             'json_data'=>$config->json_data
-        ], $conditions)->execute();
-        
-        
+        ], $conditions)->execute();                
     }
     
 }

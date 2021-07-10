@@ -15,14 +15,12 @@ class FileManager extends \yii\base\Component
                  * 
                  */
                 $cfg = (new yii\db\Query)->from(['{{%server_config}}'])
-                ->where(['is_active'=>1,'sid'=>__SID__])
-                ->andWhere(['>','state',-2])
+                ->where(['is_active'=>1,'sid'=>__SID__])                
                 ->one();
                 
                 if(empty($cfg)){
                     $cfg = (new yii\db\Query)->from(['{{%server_config}}'])
-                    ->where(['is_active'=>1,'sid'=>0])
-                    ->andWhere(['>','state',-2])
+                    ->where(['is_active'=>1,'sid'=>0])                    
                     ->one();
                 }
                 

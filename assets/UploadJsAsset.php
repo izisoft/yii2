@@ -9,17 +9,17 @@ namespace izi\assets;
 
 use Yii;
  
-class CropperAsset extends \yii\web\AssetBundle
+class UploadJsAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/cropper/dist';
+    public $sourcePath = '@vendor/bower-assets/uploadjs';
     
     
     public $css = [
-        'cropper.min.css'
+       // 'cropper.min.css'
       
     ];
     public $js = [
-        'cropper.min.js'
+        '/js/uploadjs.js'
     ];
      
     

@@ -29,6 +29,9 @@ class DropifyAsset extends \yii\web\AssetBundle
     
     public function init()
     {
- 
+        Yii::$app->view->registerCss(<<<CSS
+.dropify-wrapper .dropify-message span.file-icon p{font-size: 1rem}
+CSS
+    );
     }
 }

@@ -31,14 +31,10 @@ class Application extends \yii\web\Application
      */
     
     public $allowAction = [];
-    
-    
-    
+            
     public function bootstrap(){
-        \Yii::setAlias('@izi', dirname(__DIR__));
-        
-        return parent::bootstrap();
-        
+        \Yii::setAlias('@izi', dirname(__DIR__));        
+        return parent::bootstrap();        
     }
     
     public function coreComponents()

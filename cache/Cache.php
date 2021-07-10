@@ -54,10 +54,15 @@ class Cache extends \yii\base\Component
         }else{
             $k = md5($params);
         }
+        return $k;
     }
 
-    public function getTmpCache($params){        
+    public function getTmpCache($params){
+
         $k = $this->getTmpCacheKey($params);
+
+        // view($k, isset($params['code']) ? $params['code'] : 'AAAAAAAAAAAAAAA');
+
         if(isset($this->_tmpCache[$k])){
             return $this->_tmpCache[$k];
         }
