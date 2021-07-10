@@ -17,7 +17,7 @@ class SimpleBarAsset extends \yii\web\AssetBundle
 {
     // public $sourcePath = '@bower/dropdownhover';
     public $css = [   
-        // 'https://unpkg.com/metismenu/dist/metisMenu.min.css'     
+        'https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.css'
     ];
     
     public $js = [
