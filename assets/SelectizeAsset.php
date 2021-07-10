@@ -9,17 +9,18 @@ namespace izi\assets;
 
 use Yii;
  
-class Select2Asset extends \yii\web\AssetBundle
+class SelectizeAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@vendor/bower-assets/select2';
+    public $sourcePath = '@vendor/bower-assets/selectize.js/dist';
     
     
     public $css = [
-        'css/select2.min.css',
+        'css/selectize.bootstrap3.css',
       
     ];
     public $js = [
-        'js/select2.full.min.js'
+        // 'js/selectize.min.js',
+        'https://coderthemes.com/ubold/layouts/assets/libs/selectize/js/standalone/selectize.min.js'
     ];
      
     

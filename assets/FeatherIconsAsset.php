@@ -9,27 +9,28 @@ namespace izi\assets;
 
 use Yii;
  
-class Select2Asset extends \yii\web\AssetBundle
+class FeatherIconsAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@vendor/bower-assets/select2';
+    public $sourcePath = '@vendor/bower-assets/feather-icons/dist';
     
     
     public $css = [
-        'css/select2.min.css',
-      
+        
     ];
     public $js = [
-        'js/select2.full.min.js'
+        'feather.min.js', 
     ];
      
     
     public $depends = [        
         'yii\web\JqueryAsset',
-         
     ];
-    
+ 
     public function init()
     {
-        
+        Yii::$app->view->registerJs(<<<JS
+feather.replace();
+JS
+);
     }
 }

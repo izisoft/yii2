@@ -11,7 +11,7 @@ use Yii;
  
 class FlotAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@bower/flot/flot-0.8.3';
+    public $sourcePath = '@vendor/bower-assets/flot/flot-0.8.3';
     
     
     public $css = [
