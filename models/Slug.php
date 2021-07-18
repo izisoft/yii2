@@ -8,7 +8,7 @@
  */
 namespace izi\models;
 use Yii;
-class Slug extends \yii\db\ActiveRecord
+class Slug extends \izi\db\ActiveRecord
 {
 
 	public static function tableName(){

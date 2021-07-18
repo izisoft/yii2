@@ -194,6 +194,7 @@ class User extends \yii\web\User
   }
 	public function validatePassword($password)
   {
+	    
 	 return Yii::$app->security->validatePassword($password, $this->getPasswordHash());
   }
  

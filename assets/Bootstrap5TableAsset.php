@@ -9,7 +9,7 @@ namespace izi\assets;
 
 use Yii;
  
-class BootstrapTableAsset extends \yii\web\AssetBundle
+class Bootstrap5TableAsset extends \yii\web\AssetBundle
 {
     public $sourcePath = '@vendor/bower-assets/bootstrap-table/1.18.3/dist';
     
@@ -25,8 +25,16 @@ class BootstrapTableAsset extends \yii\web\AssetBundle
     
     public $depends = [        
         'yii\web\JqueryAsset',
-        
+        'izi\assets\Bootstrap5PluginAsset'
     ];
         
-     
+    // public function init()
+    // {
+    //     $this->bsVersion = isset(Yii::$app->params['bsVersion']) ? Yii::$app->params['bsVersion'] : '4.x';
+    //     if($this->isBs4()){
+    //         $this->depends[] = 'yii\bootstrap4\BootstrapPluginAsset';
+    //     }else{
+    //         $this->depends[] = 'yii\bootstrap\BootstrapPluginAsset';
+    //     }
+    // }
 }

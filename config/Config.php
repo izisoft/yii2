@@ -743,7 +743,30 @@ class Config extends \yii\base\Component
         return $this;
     }
     
-    
+    /**
+     * Update 07/2021
+     */
+    public function getLogo($version = 0)
+    {
+        $r = $this->getConfig(['LOGO']);
+        if(!empty($r)){
+            if(is_array($version)){
+                $d = [
+                    'logo' => $r['logo']
+                ];
+                foreach($version as $v){
+                    if($v>0 && isset($r["logo$v"])){
+                        $d["logo$v"] = $r["logo$v"];
+                    }
+                }
+                return $d;
+            }elseif($version<1){
+                return $r['logo'];
+            }else{
+                return isset($r["logo$version"])?$r["logo$version"]:null;
+            }
+        }
+    }
     
     
     

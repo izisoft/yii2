@@ -9,15 +9,18 @@ namespace izi\assets;
 
 use Yii;
  
-class RaphaelAsset extends \yii\web\AssetBundle
+class RwdtableAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@vendor/bower-assets/raphael';
+    public $sourcePath = '@vendor/bower-assets/rwd-table/dist';
     
  
-    public $js = [
-        'raphael.min.js'
+    public $css = [
+        'css/rwd-table.min.css'
     ];
      
+    public $js = [
+        'js/rwd-table.min.js'
+    ];
     
     public $depends = [        
         'yii\web\JqueryAsset', 

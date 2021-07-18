@@ -11,7 +11,7 @@ use Yii;
  
 class UploadJsAsset extends \yii\web\AssetBundle
 {
-    public $sourcePath = '@vendor/bower-assets/uploadjs';
+    // public $sourcePath = '@vendor/bower-assets/uploadjs';
     
     
     public $css = [
