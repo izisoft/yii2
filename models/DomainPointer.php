@@ -49,7 +49,7 @@ class DomainPointer extends \yii\db\ActiveRecord
             [['module'], 'string', 'max' => 64],
             [['layout', 'lang'], 'string', 'max' => 16],
             [['domain'], 'unique'],
-            [['sid'], 'exist', 'skipOnError' => true, 'targetClass' => Shops::className(), 'targetAttribute' => ['sid' => 'id']],
+            [['sid'], 'exist', 'skipOnError' => true, 'targetClass' => Shop::className(), 'targetAttribute' => ['sid' => 'id']],
         ];
     }
 
@@ -84,6 +84,6 @@ class DomainPointer extends \yii\db\ActiveRecord
      */
     public function getS()
     {
-        return $this->hasOne(Shops::className(), ['id' => 'sid']);
+        return $this->hasOne(Shop::className(), ['id' => 'sid']);
     }
 }

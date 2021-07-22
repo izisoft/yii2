@@ -656,5 +656,70 @@ class View extends \yii\base\View
     }
     
     
-    
+    /**
+     *	Nén nội dung html in ra output
+     */
+    public function compressionHtml($body) {
+        
+        
+        
+        if(YII_DEBUG){
+            return $body;
+        }
+        //remove redundant (white-space) characters
+        $replace = array(
+            //remove javascript comment
+            //'/(?:(?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:(?<!\:|\\\|\')\/\/.*))/'=>'',
+            '#\'([^\n\']*?)/\*([^\n\']*)\'#' => "'\1/'+\'\'+'*\2'", // remove comments from ' strings
+            '#\"([^\n\"]*?)/\*([^\n\"]*)\"#' => '"\1/"+\'\'+"*\2"', // remove comments from " strings
+            '#/\*.*?\*/#s'            => "",      // strip C style comments
+            '#[\r\n]+#'               => "\n",    // remove blank lines and \r's
+            '#\n([ \t]*//.*?\n)*#s'   => "\n",    // strip line comments (whole line only)
+            '#([^\\])//([^\'"\n]*)\n#s' => "\\1\n",
+            // strip line comments
+            // (that aren't possibly in strings or regex's)
+            '#\n\s+#'                 => "\n",    // strip excess whitespace
+            '#\s+\n#'                 => "\n",    // strip excess whitespace
+            '#(//[^\n]*\n)#s'         => "\\1\n", // extra line feed after any comments left
+            // (important given later replacements)
+            //'#/([\'"])\+\'\'\+([\'"])\*#' => "/*", // restore comments in strings
+            //''=>'',
+            //remove html comment
+            '/<!--(.*)-->/Uis'=>'',
+            //remove tabs before and after HTML tags
+            '/\>[^\S ]+/s'   => '>',
+            '/[^\S ]+\</s'   => '<',
+            //shorten multiple whitespace sequences; keep new-line characters because they matter in JS!!!
+            '/([\t ])+/s'  => ' ',
+            //remove leading and trailing spaces
+            '/^([\t ])+/m' => '',
+            '/([\t ])+$/m' => '',
+            // remove JS line comments (simple only); do NOT remove lines containing URL (e.g. 'src="http://server.com/"')!!!
+            '~//[a-zA-Z0-9 ]+$~m' => '',
+            //remove empty lines (sequence of line-end and white-space characters)
+            '/[\r\n]+([\t ]?[\r\n]+)+/s'  => "\n",
+            //remove empty lines (between HTML tags); cannot remove just any line-end characters because in inline JS they can matter!
+            '/\>[\r\n\t ]+\</s'    => '><',
+            //remove "empty" lines containing only JS's block end character; join with next line (e.g. "}\n}\n</script>" --> "}}</script>"
+            '/}[\r\n\t ]+/s'  => '}',
+            '/}[\r\n\t ]+,[\r\n\t ]+/s'  => '},',
+            //remove new-line after JS's function or condition start; join with next line
+            '/\)[\r\n\t ]?{[\r\n\t ]+/s'  => '){',
+            '/,[\r\n\t ]?{[\r\n\t ]+/s'  => ',{',
+            //remove new-line after JS's line end (only most obvious and safe cases)
+            '/\),[\r\n\t ]+/s'  => '),',
+            //remove quotes from HTML attributes that does not contain spaces; keep quotes around URLs!
+            //		'~([\r\n\t ])?([a-zA-Z0-9]+)="([a-zA-Z0-9_/\\-]+)"([\r\n\t ])?~s' => '$1$2=$3$4',
+            //$1 and $4 insert first white-space character found before/after attribute
+        );
+        $body = preg_replace(array_keys($replace), array_values($replace), $body);
+        
+        //remove optional ending tags (see http://www.w3.org/TR/html5/syntax.html#syntax-tag-omission )
+        $remove = array(
+            '</option>', '</li>', '</dt>', '</dd>', '</tr>', '</th>', '</td>'
+        );
+        $body = str_ireplace($remove, '', $body);
+        
+        return ($body);
+    }
 }

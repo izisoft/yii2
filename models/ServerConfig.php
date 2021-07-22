@@ -44,7 +44,7 @@ class ServerConfig extends \yii\db\ActiveRecord
         return [
             [['sid', 'host_port', 'ssl_mode', 'update_source', 'is_active', 'created_at', 'updated_at'], 'integer'],
             [['label', 'host_address', 'username', 'password', 'web_address', 'root_directory', 'connect_type', 'server_type'], 'string', 'max' => 255],
-            [['sid'], 'exist', 'skipOnError' => true, 'targetClass' => Shops::className(), 'targetAttribute' => ['sid' => 'id']],
+            [['sid'], 'exist', 'skipOnError' => true, 'targetClass' => Shop::className(), 'targetAttribute' => ['sid' => 'id']],
         ];
     }
 
@@ -78,6 +78,6 @@ class ServerConfig extends \yii\db\ActiveRecord
      */
     public function getS()
     {
-        return $this->hasOne(Shops::className(), ['id' => 'sid']);
+        return $this->hasOne(Shop::className(), ['id' => 'sid']);
     }
 }

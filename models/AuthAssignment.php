@@ -37,8 +37,8 @@ class AuthAssignment extends \yii\db\ActiveRecord
             [['item_name'], 'string', 'max' => 64],
             [['item_name', 'user_id', 'sid'], 'unique', 'targetAttribute' => ['item_name', 'user_id', 'sid']],
             [['item_name'], 'exist', 'skipOnError' => true, 'targetClass' => AuthItem::className(), 'targetAttribute' => ['item_name' => 'name']],
-            [['sid'], 'exist', 'skipOnError' => true, 'targetClass' => Shops::className(), 'targetAttribute' => ['sid' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['sid'], 'exist', 'skipOnError' => true, 'targetClass' => Shop::className(), 'targetAttribute' => ['sid' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -68,7 +68,7 @@ class AuthAssignment extends \yii\db\ActiveRecord
      */
     public function getS()
     {
-        return $this->hasOne(Shops::className(), ['id' => 'sid']);
+        return $this->hasOne(Shop::className(), ['id' => 'sid']);
     }
 
     /**
@@ -76,6 +76,6 @@ class AuthAssignment extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Users::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }

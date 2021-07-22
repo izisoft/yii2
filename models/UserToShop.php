@@ -33,8 +33,8 @@ class UserToShop extends \yii\db\ActiveRecord
             [['user_id', 'sid'], 'required'],
             [['user_id', 'sid', 'state'], 'integer'],
             [['user_id', 'sid'], 'unique', 'targetAttribute' => ['user_id', 'sid']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
-            [['sid'], 'exist', 'skipOnError' => true, 'targetClass' => Shops::className(), 'targetAttribute' => ['sid' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['sid'], 'exist', 'skipOnError' => true, 'targetClass' => Shop::className(), 'targetAttribute' => ['sid' => 'id']],
         ];
     }
 
@@ -55,7 +55,7 @@ class UserToShop extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Users::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
     /**
@@ -63,6 +63,6 @@ class UserToShop extends \yii\db\ActiveRecord
      */
     public function getS()
     {
-        return $this->hasOne(Shops::className(), ['id' => 'sid']);
+        return $this->hasOne(Shop::className(), ['id' => 'sid']);
     }
 }

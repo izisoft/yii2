@@ -35,8 +35,8 @@ class TempToShop extends \yii\db\ActiveRecord
             [['temp_id', 'sid', 'state'], 'integer'],
             [['lang'], 'string', 'max' => 16],
             [['temp_id', 'sid'], 'unique', 'targetAttribute' => ['temp_id', 'sid']],
-            [['sid'], 'exist', 'skipOnError' => true, 'targetClass' => Shops::className(), 'targetAttribute' => ['sid' => 'id']],
-            [['temp_id'], 'exist', 'skipOnError' => true, 'targetClass' => Templates::className(), 'targetAttribute' => ['temp_id' => 'id']],
+            [['sid'], 'exist', 'skipOnError' => true, 'targetClass' => Shop::className(), 'targetAttribute' => ['sid' => 'id']],
+            [['temp_id'], 'exist', 'skipOnError' => true, 'targetClass' => Template::className(), 'targetAttribute' => ['temp_id' => 'id']],
         ];
     }
 
@@ -58,7 +58,7 @@ class TempToShop extends \yii\db\ActiveRecord
      */
     public function getS()
     {
-        return $this->hasOne(Shops::className(), ['id' => 'sid']);
+        return $this->hasOne(Shop::className(), ['id' => 'sid']);
     }
 
     /**
@@ -66,6 +66,6 @@ class TempToShop extends \yii\db\ActiveRecord
      */
     public function getTemp()
     {
-        return $this->hasOne(Templates::className(), ['id' => 'temp_id']);
+        return $this->hasOne(Template::className(), ['id' => 'temp_id']);
     }
 }

@@ -38,7 +38,7 @@ class UserTextTranslate extends \yii\db\ActiveRecord
             [['lang'], 'string', 'max' => 6],
             [['value'], 'string', 'max' => 255],
             [['lang_code', 'lang', 'sid'], 'unique', 'targetAttribute' => ['lang_code', 'lang', 'sid']],
-            [['sid'], 'exist', 'skipOnError' => true, 'targetClass' => Shops::className(), 'targetAttribute' => ['sid' => 'id']],
+            [['sid'], 'exist', 'skipOnError' => true, 'targetClass' => Shop::className(), 'targetAttribute' => ['sid' => 'id']],
         ];
     }
 
@@ -62,6 +62,6 @@ class UserTextTranslate extends \yii\db\ActiveRecord
      */
     public function getS()
     {
-        return $this->hasOne(Shops::className(), ['id' => 'sid']);
+        return $this->hasOne(Shop::className(), ['id' => 'sid']);
     }
 }

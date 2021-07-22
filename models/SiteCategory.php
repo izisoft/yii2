@@ -48,7 +48,7 @@ class SiteCategory extends \yii\db\ActiveRecord
             [['type'], 'string', 'max' => 16],
             [['lang'], 'string', 'max' => 6],
             [['name', 'url', 'url_link'], 'string', 'max' => 255],
-            [['sid'], 'exist', 'skipOnError' => true, 'targetClass' => Shops::className(), 'targetAttribute' => ['sid' => 'id']],
+            [['sid'], 'exist', 'skipOnError' => true, 'targetClass' => Shop::className(), 'targetAttribute' => ['sid' => 'id']],
         ];
     }
 
@@ -82,6 +82,6 @@ class SiteCategory extends \yii\db\ActiveRecord
      */
     public function getS()
     {
-        return $this->hasOne(Shops::className(), ['id' => 'sid']);
+        return $this->hasOne(Shop::className(), ['id' => 'sid']);
     }
 }

@@ -1,5 +1,5 @@
 <?php
-namespace app\models;
+namespace izi\models;
  
 use yii\web\IdentityInterface;
 use yii\db\ActiveRecord;
@@ -40,6 +40,10 @@ use Yii;
 class User extends ActiveRecord implements IdentityInterface {
     
 //     public $id, $username, $password, $authkey, $accessToken;
+
+    const STATUS_DELETED = 0;
+    const STATUS_INACTIVE = 9;
+    const STATUS_ACTIVE = 10;
     
     public static function tableName()
     {
@@ -62,7 +66,7 @@ class User extends ActiveRecord implements IdentityInterface {
             [['type'], 'string', 'max' => 15],
             [['phone', 'login_phone'], 'string', 'max' => 16],
             [['auth_key', 'password_reset_token'], 'string', 'max' => 128],
-            [['sid'], 'exist', 'skipOnError' => true, 'targetClass' => \izi\models\Shops::className(), 'targetAttribute' => ['sid' => 'id']],
+            [['sid'], 'exist', 'skipOnError' => true, 'targetClass' => Shop::className(), 'targetAttribute' => ['sid' => 'id']],
         ];
     }
     
@@ -71,7 +75,7 @@ class User extends ActiveRecord implements IdentityInterface {
      */
     public function getAuthAssignments()
     {
-        return $this->hasMany(\izi\models\AuthAssignment::className(), ['user_id' => 'id']);
+        return $this->hasMany(AuthAssignment::className(), ['user_id' => 'id']);
     }
     
     /**
@@ -79,7 +83,7 @@ class User extends ActiveRecord implements IdentityInterface {
      */
     public function getS()
     {
-        return $this->hasOne(\izi\models\Shops::className(), ['id' => 'sid']);
+        return $this->hasOne(Shop::className(), ['id' => 'sid']);
     }
     
     public static function findIdentity($id)
@@ -92,8 +96,7 @@ class User extends ActiveRecord implements IdentityInterface {
     {
         return self::find()->andWhere(['access_token' => $token])->one();
     }
-    
-    
+        
     
     public static function findByUsername($username)
     {

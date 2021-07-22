@@ -39,7 +39,7 @@ class StoreWebsite extends \yii\db\ActiveRecord
             [['code'], 'string', 'max' => 32],
             [['name'], 'string', 'max' => 64],
             [['code', 'sid'], 'unique', 'targetAttribute' => ['code', 'sid']],
-            [['sid'], 'exist', 'skipOnError' => true, 'targetClass' => Shops::className(), 'targetAttribute' => ['sid' => 'id']],
+            [['sid'], 'exist', 'skipOnError' => true, 'targetClass' => Shop::className(), 'targetAttribute' => ['sid' => 'id']],
         ];
     }
 
@@ -80,6 +80,6 @@ class StoreWebsite extends \yii\db\ActiveRecord
      */
     public function getS()
     {
-        return $this->hasOne(Shops::className(), ['id' => 'sid']);
+        return $this->hasOne(Shop::className(), ['id' => 'sid']);
     }
 }

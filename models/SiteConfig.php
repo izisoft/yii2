@@ -5,24 +5,25 @@ namespace izi\models;
 use Yii;
 
 /**
- * This is the model class for table "smenu".
+ * This is the model class for table "site_configs".
  *
- * @property int $id
  * @property string $code
- * @property string $name
- * @property string $json_data
+ * @property string $lang
  * @property int $sid
+ * @property string $json_data
+ * @property int $created_at
+ * @property int $updated_at
  *
  * @property Shops $s
  */
-class Smenu extends \yii\db\ActiveRecord
+class SiteConfig extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'smenu';
+        return 'site_configs';
     }
 
     /**
@@ -31,11 +32,12 @@ class Smenu extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['code', 'name'], 'required'],
+            [['code', 'lang', 'sid'], 'required'],
+            [['sid', 'created_at', 'updated_at'], 'integer'],
             [['json_data'], 'string'],
-            [['sid'], 'integer'],
             [['code'], 'string', 'max' => 64],
-            [['name'], 'string', 'max' => 255],
+            [['lang'], 'string', 'max' => 8],
+            [['code', 'lang', 'sid'], 'unique', 'targetAttribute' => ['code', 'lang', 'sid']],
             [['sid'], 'exist', 'skipOnError' => true, 'targetClass' => Shop::className(), 'targetAttribute' => ['sid' => 'id']],
         ];
     }
@@ -46,11 +48,12 @@ class Smenu extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
             'code' => 'Code',
-            'name' => 'Name',
-            'json_data' => 'Json Data',
+            'lang' => 'Lang',
             'sid' => 'Sid',
+            'json_data' => 'Json Data',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
         ];
     }
 
